@@ -1,5 +1,9 @@
 Discord Bot: Whelp 
 
+V2.0.0
+Added file writing to bot code
+Added roleUpdate event to write the details of a new role to a txt file
+
 V1.0.0 
 Date: 3/24/2018
 Has the basic commands:

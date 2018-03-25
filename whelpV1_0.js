@@ -1,5 +1,6 @@
 // Introduction
 const Discord = require("discord.js");
+const fs = require("fs");
 const client = new Discord.Client();
 const config = require("./config.json");
 const botGuild = require("./botguild.json"); //Bot Guild IDs
@@ -9,6 +10,11 @@ client.on("ready", () => {
   console.log("I am ready!");
 });
 
+fs.writeFile("./test.txt","run", function(err) {
+  if(err) {
+    return console.log(err);
+  }
+});
 // Constants
 // Bot related
 const prefix = config.prefix;
@@ -51,6 +57,24 @@ client.on("guildMemberAdd", (addedMember) =>{
     client.guilds.get(botGuild.guildID).channels.get(botGuild.genChat).send("hello");
     client.guilds.get(botGuild.guildID).channels.get(botGuild.genChat).send(userTag+" You can send me commands in this channel. For more information, send !help");
   }
+});
+
+// When role is updated
+client.on("roleUpdate", (roleOld, roleNew) => {
+  var roleOldName = roleOld.name;
+  var roleName = roleNew.name;
+  var roleID = roleNew.id;
+  if (roleOldName == roleName){
+
+  }else{
+    fs.appendFile("./NewRoles.txt",roleOldName+ "  changed to  " + roleName+ " "+roleID+"\n", function(err) {
+      if(err) {
+          return console.log(err);
+      }
+
+    });
+  }
+
 });
 
 // When a person is banned
@@ -381,3 +405,5 @@ client.on("message", (message) => {
 
 // to log in the bot
 client.login(config.token);
+
+// Functions
