@@ -39,7 +39,8 @@ const caseList = [
   "!LOL",                 // 13
   "!Minecraft",           // 14
   "!PUBG",                // 15
-  "!Terraria"             // 16
+  "!Terraria",            // 16
+  "!fucksgiven"                // 17
 ];
 
 
@@ -122,6 +123,7 @@ client.on("message", (message) => {
         "My commands follow a format of !<game>. "+
         "A couple examples: \n"+
         "!ESO \n!ARK \n!LOL\n"+
+        "For a list of game commands, type '!gamesoffered'."
         "To have a list of my commands sent to you, type '!list'."
       );
       break;
@@ -385,6 +387,16 @@ client.on("message", (message) => {
       break;//role added, break out of the case
     }
 
+  case caseList[17]: // !fucksgiven
+    var numOfFucks = getRandomInt(20);
+    if (numOfFucks == 0){
+      message.channel.send("Damn! You give no fucks.")
+    } elseif(numOfFucks == 20) {
+      message.channel.send("Woah! You give "+numOfFucks+"! Max fuckage!")
+    } else{
+      message.channel.send("You give "+numOfFucks+".")
+    }
+    break;
   default:
     triggers = 0;
     break;
@@ -407,3 +419,7 @@ client.on("message", (message) => {
 client.login(config.token);
 
 // Functions
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
