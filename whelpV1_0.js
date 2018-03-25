@@ -52,8 +52,10 @@ client.on("guildMemberAdd", (addedMember) =>{
 
   if (guildAdded == dracGuild.guildID){
     var msg = "Welcome to Draconian Argentum! I am Whelp and I help you get around on the server. ";
-    client.guilds.get(dracGuild.guildID).channels.get(dracGuild.welcomeChat).send("Hello "+displayedName+"! ");
-    client.guilds.get(dracGuild.guildID).channels.get(dracGuild.botReport).send(userTag+" You can send me commands in this channel. For more information, send '!help'");
+    client.guilds.get(dracGuild.guildID).channels.get(dracGuild.welcomeChat).send("Hello "+displayedName+"! "+msg+
+      "\nOlá! Seja bem vindo a Draconian Argentum! Eu sou Whelp e vou te ajudar a se acertar no servidor.");
+    client.guilds.get(dracGuild.guildID).channels.get(dracGuild.botReport).send(userTag+" You can send me commands in this channel. For more information, send '!help'.\n"+
+      "Você pode me enviar comandos neste canal. Para mais informações, digite '!ajuda'.");
   }else{
     client.guilds.get(botGuild.guildID).channels.get(botGuild.genChat).send("hello");
     client.guilds.get(botGuild.guildID).channels.get(botGuild.genChat).send(userTag+" You can send me commands in this channel. For more information, send '!help'");
@@ -123,7 +125,7 @@ client.on("message", (message) => {
         "My commands follow a format of !<game>. "+
         "A couple examples: \n"+
         "!ESO \n!ARK \n!LOL\n"+
-        "For a list of game commands, type '!gamesoffered'."
+        "For a list of game commands, type '!gamesoffered'. "
         "To have a list of my commands sent to you, type '!list'."
       );
       break;
@@ -137,6 +139,7 @@ client.on("message", (message) => {
         "Meus comandos seguem o seguinte formato: !<jogo>." +
         "Alguns exemplos: \n" +
         "!ESO \n!ARK \n !LOL\n" +
+        "Para uma lista dos jogos disponíveis, digite '!gamesoffered'. "
         "Para ver uma lista de todos os meus comandos, digite '!lista'."
       );
       break;
