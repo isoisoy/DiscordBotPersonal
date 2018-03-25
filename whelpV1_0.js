@@ -53,10 +53,10 @@ client.on("guildMemberAdd", (addedMember) =>{
   if (guildAdded == dracGuild.guildID){
     var msg = "Welcome to Draconian Argentum! I am Whelp and I help you get around on the server. ";
     client.guilds.get(dracGuild.guildID).channels.get(dracGuild.welcomeChat).send("Hello "+displayedName+"! ");
-    client.guilds.get(dracGuild.guildID).channels.get(dracGuild.botReport).send(userTag+" You can send me commands in this channel. For more information, send !help");
+    client.guilds.get(dracGuild.guildID).channels.get(dracGuild.botReport).send(userTag+" You can send me commands in this channel. For more information, send '!help'");
   }else{
     client.guilds.get(botGuild.guildID).channels.get(botGuild.genChat).send("hello");
-    client.guilds.get(botGuild.guildID).channels.get(botGuild.genChat).send(userTag+" You can send me commands in this channel. For more information, send !help");
+    client.guilds.get(botGuild.guildID).channels.get(botGuild.genChat).send(userTag+" You can send me commands in this channel. For more information, send '!help'");
   }
 });
 
