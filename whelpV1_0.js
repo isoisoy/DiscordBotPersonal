@@ -18,7 +18,7 @@ const reactEmoji = "423264671030837303";
 
 const caseList = [
   "!help",                // 0
-  "!ayuda",               // 1
+  "!ajuda",               // 1
   "!list",                // 2
   "!lista",               // 3
   "!emoji",               // 4
@@ -102,7 +102,7 @@ client.on("message", (message) => {
       );
       break;
 
-    case caseList[1]: // !ayuda
+    case caseList[1]: // !ajuda
       message.channel.send(
         "Olá! Eu sou Whelp. Sou um bot criado para ajudar " +
         " com a moderação deste chat." +

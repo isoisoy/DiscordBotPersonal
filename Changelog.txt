@@ -1,0 +1,30 @@
+Discord Bot: Whelp 
+
+V1.0.0 
+Date: 3/24/2018
+Has the basic commands:
+-Responds to when a member is added
+-Responds when a specific member is banned
+-Responds when a message with the prefix "!" and appropriate command is sent
+	Appropriate commands:
+	-help
+	-ajuda
+	-list
+	-lista
+	-emoji -not public
+	-roleID -not public
+	-gamesoffered
+	-ping
+	-me
+	-ARK
+	-BF
+	-ESO
+	-Haven&Hearth
+	-LOL
+	-Minecraft
+	-PUBG
+	-Terraria
+-Role commands require the bot to check to see if the user already has the role
+	-if user has the role: bot removes the role
+	-if user does not have the role: bot adds the role
+-List commands send a direct message to the user who issued the command of the public commands
