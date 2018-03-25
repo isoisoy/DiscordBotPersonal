@@ -125,7 +125,7 @@ client.on("message", (message) => {
         "My commands follow a format of !<game>. "+
         "A couple examples: \n"+
         "!ESO \n!ARK \n!LOL\n"+
-        "For a list of game commands, type '!gamesoffered'. "
+        "For a list of game commands, type '!gamesoffered'. "+
         "To have a list of my commands sent to you, type '!list'."
       );
       break;
@@ -139,7 +139,7 @@ client.on("message", (message) => {
         "Meus comandos seguem o seguinte formato: !<jogo>." +
         "Alguns exemplos: \n" +
         "!ESO \n!ARK \n !LOL\n" +
-        "Para uma lista dos jogos disponíveis, digite '!gamesoffered'. "
+        "Para uma lista dos jogos disponíveis, digite '!gamesoffered'. "+
         "Para ver uma lista de todos os meus comandos, digite '!lista'."
       );
       break;
@@ -394,7 +394,7 @@ client.on("message", (message) => {
     var numOfFucks = getRandomInt(20);
     if (numOfFucks == 0){
       message.channel.send("Damn! You give no fucks.")
-    } elseif(numOfFucks == 20) {
+    } else if(numOfFucks == 20) {
       message.channel.send("Woah! You give "+numOfFucks+"! Max fuckage!")
     } else{
       message.channel.send("You give "+numOfFucks+".")
