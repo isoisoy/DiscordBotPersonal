@@ -397,7 +397,7 @@ client.on("message", (message) => {
     } else if(numOfFucks == 20) {
       message.channel.send("Woah! You give "+numOfFucks+"! Max fuckage!")
     } else{
-      message.channel.send("You give "+numOfFucks+".")
+      message.channel.send("You give "+numOfFucks+" fucks.")
     }
     break;
   default:
