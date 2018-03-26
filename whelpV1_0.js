@@ -128,7 +128,7 @@ client.on("message", (message) => {
       );
       break;
 
-    case caseList[1]: // !ajuda
+  case caseList[1]: // !ajuda
       message.channel.send(
         "Olá! Eu sou Whelp. Sou um bot criado para ajudar " +
         " com a moderação deste chat." +
