@@ -1,6 +1,7 @@
 // Introduction
 const Discord = require("discord.js");
 const fs = require("fs");
+const { exec } = require('child_process');
 const client = new Discord.Client();
 const config = require("./config.json");
 const botGuild = require("./botguild.json"); //Bot Guild IDs
