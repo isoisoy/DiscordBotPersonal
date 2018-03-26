@@ -415,30 +415,32 @@ client.on("message", (message) => {
       var numOfLosses = stdout.substr(importantPos,1);
 
       if (numOfLosses == "0"){
-        message.channel.send("The game server seems to be responding.")
+        message.channel.send("The game server seems to be responding.");
       } else if (numOfLosses == "4"){
-        message.channel.send("The game server appears to be down.")
+        message.channel.send("The game server appears to be down.");
       } else {
-        message.channel.send("The game server may or may not be down.")
+        message.channel.send("The game server may or may not be down.");
       }
-
+      triggers = 1;
     });
 
     break;
 
   default:
+
     triggers = 0;
     break;
   } // ends switch
 
   var reporttxt = " asked me ";
   var tagName = name.username;
-  var badReportTxt = " tried to use "
+  var badReportTxt = " tried to use ";
 
   //cmd
   if (triggers){
     client.guilds.get(botGuild.guildID).channels.get(botGuild.botReport).send(tagName+"/"+nameCheck+reporttxt+cmd);
   }else{
+
     client.guilds.get(botGuild.guildID).channels.get(botGuild.botReport).send(tagName+"/"+nameCheck+badReportTxt+cmd);
   }
 
