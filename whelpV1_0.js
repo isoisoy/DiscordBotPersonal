@@ -408,7 +408,7 @@ client.on("message", (message) => {
       if (err){
         return;
       }
-      console.log('stdout: ${stdout}',stdout);
+      //console.log('stdout: ${stdout}',stdout);
       // gotta parse through the message
       var pos = stdout.indexOf("Lost"); //number of index where Lost will start
       var importantPos = pos + 7;
