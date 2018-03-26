@@ -1,5 +1,9 @@
 Discord Bot: Whelp
 
+V2.1.0
+Added !havenserver command
+-Pings the game server and responds whether or not the server is up
+
 V2.0.1
 Added !fucksgiven command
 Added Portoguese support for added help and welcome message
