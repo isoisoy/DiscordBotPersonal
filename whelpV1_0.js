@@ -40,7 +40,8 @@ const caseList = [
   "!Minecraft",           // 14
   "!PUBG",                // 15
   "!Terraria",            // 16
-  "!fucksgiven"                // 17
+  "!fucksgiven",          // 17
+  "!havenserver"          // 18
 ];
 
 
@@ -400,6 +401,30 @@ client.on("message", (message) => {
       message.channel.send("You give "+numOfFucks+" fucks.")
     }
     break;
+
+  case caseList[18]: // !havenserver
+    exec('ping game.havenandhearth.com', (err,stdout,stderr) => {
+      if (err){
+        return;
+      }
+      console.log('stdout: ${stdout}',stdout);
+      // gotta parse through the message
+      var pos = stdout.indexOf("Lost"); //number of index where Lost will start
+      var importantPos = pos + 7;
+      var numOfLosses = stdout.substr(importantPos,1);
+
+      if (numOfLosses == "0"){
+        message.channel.send("The game server seems to be responding.")
+      } else if (numOfLosses == "4"){
+        message.channel.send("The game server appears to be down.")
+      } else {
+        message.channel.send("The game server may or may not be down.")
+      }
+
+    });
+
+    break;
+
   default:
     triggers = 0;
     break;
