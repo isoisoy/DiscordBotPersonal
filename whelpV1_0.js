@@ -397,11 +397,13 @@ client.on("message", (message) => {
   case caseList[17]: // !fucksgiven
     var numOfFucks = getRandomInt(20);
     if (numOfFucks == 0){
-      message.channel.send("Damn! You give no fucks.")
+      message.channel.send("Damn! You give no fucks.");
     } else if(numOfFucks == 20) {
-      message.channel.send("Woah! You give "+numOfFucks+"! Max fuckage!")
-    } else{
-      message.channel.send("You give "+numOfFucks+" fucks.")
+      message.channel.send("Woah! You give "+numOfFucks+"! Max fuckage!");
+    } else if (numOfFucks == 1) {
+      message.channel.send(":( Just a single fuck.");
+    }else {
+      message.channel.send("You give "+numOfFucks+" fucks.");
     }
     break;
 
