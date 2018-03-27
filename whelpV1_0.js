@@ -11,12 +11,13 @@ client.on("ready", () => {
   console.log("I am ready!");
 });
 
-fs.writeFile("./test.txt","run", function(err) {
+/*fs.writeFile("./test.txt","run", function(err) {
   if(err) {
     return console.log(err);
   }
-});
+});*/
 // Constants
+const owner = "215225483942428672"; // my own id
 // Bot related
 const prefix = config.prefix;
 
@@ -24,26 +25,27 @@ const prefix = config.prefix;
 const reactEmoji = "423264671030837303";
 
 const caseList = [
-  "!help",                // 0
-  "!ajuda",               // 1
-  "!list",                // 2
-  "!lista",               // 3
-  "!emoji",               // 4
-  "!roleID",              // 5
-  "!gamesoffered",        // 6
-  "!ping",                // 7
-  "!me",                  // 8
-  "!ARK",                 // 9
-  "!BF",                  // 10
-  "!ESO",                 // 11
-  "!Haven&Hearth",        // 12
-  "!LOL",                 // 13
-  "!Minecraft",           // 14
-  "!PUBG",                // 15
-  "!Terraria",            // 16
-  "!fucksgiven",          // 17
-  "!havenserver"          // 18
+  "help",                // 0
+  "ajuda",               // 1
+  "list",                // 2
+  "lista",               // 3
+  "emoji",               // 4
+  "roleID",              // 5
+  "gamesoffered",        // 6
+  "ping",                // 7
+  "me",                  // 8
+  "ARK",                 // 9
+  "BF",                  // 10
+  "ESO",                 // 11
+  "Haven&Hearth",        // 12
+  "LOL",                 // 13
+  "Minecraft",           // 14
+  "PUBG",                // 15
+  "Terraria",            // 16
+  "fucksgiven",          // 17
+  "havenserver"          // 18
 ];
+
 
 
 // When guild members are added
@@ -117,7 +119,7 @@ client.on("message", (message) => {
     message.channel.send("All hail "+nameCheck+"!");
   }
 
-  switch(cmd) {
+  switch(messageCheck) {
     case caseList[0]: // !help
       message.channel.send(
         "Hello! I'm Whelp. I'm a bot created to help with " +
@@ -150,7 +152,7 @@ client.on("message", (message) => {
     message.author.createDM();
     var commandList = "";
     for (var i = 0; i < caseList.length; i++) {
-      if (i == 4 || i == 5) {
+      if (notAllowed()) {
       }else {
         commandList += caseList[i] + "\n";
       }
@@ -199,7 +201,7 @@ client.on("message", (message) => {
     break;
 
   case caseList[8]: // !me
-    var owner = "215225483942428672";
+
     var name2 = message.author.id;
     if (name2 == owner){
       message.channel.send("You are "+name+", silly! You're a piece of shit!");
@@ -450,6 +452,10 @@ client.on("message", (message) => {
 client.login(config.token);
 
 // Functions
+function notAllowed(){
+  var i
+  return i == 4 || i == 5
+}
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
