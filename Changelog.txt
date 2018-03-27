@@ -1,5 +1,8 @@
 Discord Bot: Whelp
 
+V2.1.1
+Minor fix for the 1 fucks
+
 V2.1.0
 Added !havenserver command
 -Pings the game server and responds whether or not the server is up
