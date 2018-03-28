@@ -6,6 +6,7 @@ const client = new Discord.Client();
 const config = require("./config.json");
 const botGuild = require("./botguild.json"); //Bot Guild IDs
 const dracGuild = require("./dracarg.json"); //Draconian Argentum Guild IDs
+const specPpl = require("./specialPeople.json"); // Special People IDS
 
 client.on("ready", () => {
   console.log("I am ready!");
@@ -17,8 +18,8 @@ client.on("ready", () => {
   }
 });*/
 // Constants
-//var owner = "215225483942428672" // my own id 215225483942428672
-var owner
+var owner = "215225483942428672"; // my own id 215225483942428672
+
 // Bot related
 const prefix = config.prefix;
 
@@ -44,7 +45,8 @@ const caseList = [
   "PUBG",                // 15
   "Terraria",            // 16
   "fucksgiven",          // 17
-  "havenserver"         // 18
+  "havenserver",         // 18
+  "doubt"                // 19
 ];
 
 
@@ -135,321 +137,325 @@ client.on("message", (message) => {
       );
       break;
 
-  case caseList[1]: // !ajuda
-      message.channel.send(
-        "Olá! Eu sou Whelp. Sou um bot criado para ajudar " +
-        " com a moderação deste chat." +
-        "Você pode me enviar comandos para se juntar aos diferentes " +
-        "chats e canais de acordo com os jogos que você joga." +
-        "Meus comandos seguem o seguinte formato: !<jogo>." +
-        "Alguns exemplos: \n" +
-        "!ESO \n!ARK \n !LOL\n" +
-        "Para uma lista dos jogos disponíveis, digite '!gamesoffered'. "+
-        "Para ver uma lista de todos os meus comandos, digite '!lista'."
+    case caseList[1]: // !ajuda
+        message.channel.send(
+          "Olá! Eu sou Whelp. Sou um bot criado para ajudar " +
+          " com a moderação deste chat." +
+          "Você pode me enviar comandos para se juntar aos diferentes " +
+          "chats e canais de acordo com os jogos que você joga." +
+          "Meus comandos seguem o seguinte formato: !<jogo>." +
+          "Alguns exemplos: \n" +
+          "!ESO \n!ARK \n !LOL\n" +
+          "Para uma lista dos jogos disponíveis, digite '!gamesoffered'. "+
+          "Para ver uma lista de todos os meus comandos, digite '!lista'."
+        );
+        break;
+
+    case caseList[2]: // !list
+      message.author.createDM();
+      var commandList = "";
+      for (var i = 0; i < caseList.length; i++) {
+        if (notAllowed()) {
+        }else {
+          commandList += caseList[i] + "\n";
+        }
+      }
+      message.author.send("This is the list of my commands. \n"+commandList);
+      break;
+
+    case caseList[3]: // !lista
+      message.author.createDM();
+      var commandList = "";
+      for (var i = 0; i < caseList.length; i++) {
+        if (i == 4 || i == 5) {
+        }else {
+          commandList += caseList[i] + "\n";
+        }
+      }
+      message.author.send("Essa é a lista de meus comandos. \n"+commandList);
+      break;
+
+    case caseList[4]: // !emoji
+      var name2 = message.author.id;
+      if (name2 == owner){
+        var emojis = message.guild.emojis;
+        console.log(emojis);
+      }
+      break;
+
+    case caseList[5]: // !roleID
+      var idspls = roleList.map(r => r.id); // isolates the role ids
+      var absrolelist = message.guild.roles;
+      console.log(absrolelist);
+      break;
+
+    case caseList[6]: // !gamesoffered
+      message.channel.send("Game Categories Currently Offered:\n"+
+      "Ark [!ARK]\nBattlefield [!BF]\nElder Scrolls Online [!ESO]"+
+      "\nHaven & Hearth [!Haven&Hearth]"+
+      "\nLeague of Legends [!LOL]\nMinecraft [!Minecraft]"+
+      "\nPLAYERUNKNOWN's Battlegrounds [!PUBG]\nTerraria [!Terraria]"
       );
       break;
 
-  case caseList[2]: // !list
-    message.author.createDM();
-    var commandList = "";
-    for (var i = 0; i < caseList.length; i++) {
-      if (notAllowed()) {
-      }else {
-        commandList += caseList[i] + "\n";
-      }
-    }
-    message.author.send("This is the list of my commands. \n"+commandList);
-    break;
-
-  case caseList[3]: // !lista
-    message.author.createDM();
-    var commandList = "";
-    for (var i = 0; i < caseList.length; i++) {
-      if (i == 4 || i == 5) {
-      }else {
-        commandList += caseList[i] + "\n";
-      }
-    }
-    message.author.send("Essa é a lista de meus comandos. \n"+commandList);
-    break;
-
-  case caseList[4]: // !emoji
-    var owner = "215225483942428672";
-    var name2 = message.author.id;
-    if (name2 == owner){
-      var emojis = message.guild.emojis;
-      console.log(emojis);
-    }
-    break;
-
-  case caseList[5]: // !roleID
-    var idspls = roleList.map(r => r.id); // isolates the role ids
-    var absrolelist = message.guild.roles;
-    console.log(absrolelist);
-    break;
-
-  case caseList[6]: // !gamesoffered
-    message.channel.send("Game Categories Currently Offered:\n"+
-    "Ark [!ARK]\nBattlefield [!BF]\nElder Scrolls Online [!ESO]"+
-    "\nHaven & Hearth [!Haven&Hearth]"+
-    "\nLeague of Legends [!LOL]\nMinecraft [!Minecraft]"+
-    "\nPLAYERUNKNOWN's Battlegrounds [!PUBG]\nTerraria [!Terraria]"
-    );
-    break;
-
-  case caseList[7]: // !ping
-    message.channel.send("NO! NO PONG!");
-    break;
-
-  case caseList[8]: // !me
-    var owner = "215225483942428672";
-    var name2 = message.author.id;
-    console.log(name2);
-    var nameRe = String(name2);
-    if (name2 == owner){
-      message.channel.send("You are "+name+", silly! You're a piece of shit!");
-    } else {
-      message.channel.send("You are "+name+"!");
-    }
-    break;
-
-  case caseList[9]: // !ARK
-    for (i = 0; i<roleCheck.length;i++){
-      var x = new Boolean(roleCheck[i]==dracGuild.roles.ARK);
-      // if this is true, you have the role
-
-      if (x == true) {
-        message.member.removeRole(dracGuild.roles.ARK);
-        removeTheRole = 1;
-        break; //remove the role and break out of the for loop
-      }else{
-        //do nothing and continue
-      }
-    } // out of the for loop
-
-    if (removeTheRole){
-      message.react(reactEmoji);
-      break; //role removed, break out of the case
-    }else if(removeTheRole ==0){
-      message.member.addRole(dracGuild.roles.ARK);
-      message.react(reactEmoji);
-      break;//role added, break out of the case
-    }
-
-  case caseList[10]: // !BF
-    for (i = 0; i<roleCheck.length;i++){
-      var x = new Boolean(roleCheck[i]==dracGuild.roles.BF);
-      // if this is true, you have the role
-
-      if (x == true) {
-        message.member.removeRole(dracGuild.roles.BF);
-        removeTheRole = 1;
-        break; //remove the role and break out of the for loop
-      }else{
-        //do nothing and continue
-      }
-    } // out of the for loop
-
-    if (removeTheRole){
-      message.react(reactEmoji);
-      break; //role removed, break out of the case
-    }else if(removeTheRole ==0){
-      message.member.addRole(dracGuild.roles.BF);
-      message.react(reactEmoji);
-      break;//role added, break out of the case
-    }
-
-  case caseList[11]: // !ESO
-    for (i = 0; i<roleCheck.length;i++){
-      var x = new Boolean(roleCheck[i]==dracGuild.roles.ESO);
-      // if this is true, you have the role
-
-      if (x == true) {
-        message.member.removeRole(dracGuild.roles.ESO);
-        removeTheRole = 1;
-        break; //remove the role and break out of the for loop
-      }else{
-        //do nothing and continue
-      }
-    } // out of the for loop
-
-    if (removeTheRole){
-      message.react(reactEmoji);
-      break; //role removed, break out of the case
-    }else if(removeTheRole ==0){
-      message.member.addRole(dracGuild.roles.ESO);
-      message.react(reactEmoji);
-      break;//role added, break out of the case
-    }
-
-  case caseList[12]: // !Haven&Hearth
-    for (i = 0; i<roleCheck.length;i++){
-      var x = new Boolean(roleCheck[i]==dracGuild.roles.Haven);
-      // if this is true, you have the role
-
-      if (x == true) {
-        message.member.removeRole(dracGuild.roles.Haven);
-        removeTheRole = 1;
-        break; //remove the role and break out of the for loop
-      }else{
-        //do nothing and continue
-      }
-    } // out of the for loop
-
-    if (removeTheRole){
-      message.react(reactEmoji);
-      break; //role removed, break out of the case
-    }else if(removeTheRole ==0){
-      message.member.addRole(dracGuild.roles.Haven);
-      message.react(reactEmoji);
-      break;//role added, break out of the case
-    }
-
-  case caseList[13]: // !LOL
-    for (i = 0; i<roleCheck.length;i++){
-      var x = new Boolean(roleCheck[i]==dracGuild.roles.LOL);
-      // if this is true, you have the role
-
-      if (x == true) {
-        message.member.removeRole(dracGuild.roles.LOL);
-        removeTheRole = 1;
-        break; //remove the role and break out of the for loop
-      }else{
-        //do nothing and continue
-      }
-    } // out of the for loop
-
-    if (removeTheRole){
-      message.react(reactEmoji);
-      break; //role removed, break out of the case
-    }else if(removeTheRole ==0){
-      message.member.addRole(dracGuild.roles.LOL);
-      message.react(reactEmoji);
-      break;//role added, break out of the case
-    }
-
-  case caseList[14]: // !Minecraft
-    for (i = 0; i<roleCheck.length;i++){
-      var x = new Boolean(roleCheck[i]==dracGuild.roles.Minecraft);
-      // if this is true, you have the role
-
-      if (x == true) {
-        message.member.removeRole(dracGuild.roles.Minecraft);
-        removeTheRole = 1;
-        break; //remove the role and break out of the for loop
-      }else{
-        //do nothing and continue
-      }
-    } // out of the for loop
-
-    if (removeTheRole){
-      message.react(reactEmoji);
-      break; //role removed, break out of the case
-    }else if(removeTheRole ==0){
-      message.member.addRole(dracGuild.roles.Minecraft);
-      message.react(reactEmoji);
-      break;//role added, break out of the case
-    }
-
-  case caseList[15]: // !PUBG
-    for (i = 0; i<roleCheck.length;i++){
-      var x = new Boolean(roleCheck[i]==dracGuild.roles.PUBG);
-      // if this is true, you have the role
-
-      if (x == true) {
-        message.member.removeRole(dracGuild.roles.PUBG);
-        removeTheRole = 1;
-        break; //remove the role and break out of the for loop
-      }else{
-        //do nothing and continue
-      }
-    } // out of the for loop
-
-    if (removeTheRole){
-      message.react(reactEmoji);
-      break; //role removed, break out of the case
-    }else if(removeTheRole ==0){
-      message.member.addRole(dracGuild.roles.PUBG);
-      message.react(reactEmoji);
-      break;//role added, break out of the case
-    }
-
-  case caseList[16]: // !Terraria
-    for (i = 0; i<roleCheck.length;i++){
-      var x = new Boolean(roleCheck[i]==dracGuild.roles.Terraria);
-      // if this is true, you have the role
-
-      if (x == true) {
-        message.member.removeRole(dracGuild.roles.Terraria);
-        removeTheRole = 1;
-        break; //remove the role and break out of the for loop
-      }else{
-        //do nothing and continue
-      }
-    } // out of the for loop
-
-    if (removeTheRole){
-      message.react(reactEmoji);
-      break; //role removed, break out of the case
-    }else if(removeTheRole ==0){
-      message.member.addRole(dracGuild.role.Terraria);
-      message.react(reactEmoji);
-      break;//role added, break out of the case
-    }
-
-  case caseList[17]: // !fucksgiven
-    var numOfFucks = getRandomInt(20);
-    if (numOfFucks == 0){
-      message.channel.send("Damn! You give no fucks.");
-    } else if(numOfFucks == 20) {
-      message.channel.send("Woah! You give "+numOfFucks+"! Max fuckage!");
-    } else if (numOfFucks == 1) {
-      message.channel.send(":( Just a single fuck.");
-    }else {
-      message.channel.send("You give "+numOfFucks+" fucks.");
-    }
-    break;
-
-  case caseList[18]: // !havenserver
-    var personID = message.author.id;
-    var isBad = badPplFinder(personID);
-    console.log(isBad);
-    if (isBad){
-      message.channel.send("You do not have permission to use this command.");
+    case caseList[7]: // !ping
+      message.channel.send("NO! NO PONG!");
       break;
-    }
-    exec('ping game.havenandhearth.com', (err,stdout,stderr) => {
-      if (err){
-        return;
-      }
-      //console.log('stdout: ${stdout}',stdout);
-      // gotta parse through the message
-      var pos = stdout.indexOf("Lost"); //number of index where Lost will start
-      var importantPos = pos + 7;
-      var numOfLosses = stdout.substr(importantPos,1);
 
-      if (numOfLosses == "0"){
-        message.channel.send("The game server seems to be responding.");
-      } else if (numOfLosses == "4"){
-        message.channel.send("The game server appears to be down.");
+    case caseList[8]: // !me
+
+      var name2 = message.author.id;
+
+      if (name2 == owner){
+        message.channel.send("You are "+name+", you piece of shit.");
       } else {
-        message.channel.send("The game server may or may not be down.");
+        message.channel.send("You are "+name+"!");
       }
-      triggers = 1;
-    });
+      break;
 
-    break;
+    case caseList[9]: // !ARK
+      for (i = 0; i<roleCheck.length;i++){
+        var x = new Boolean(roleCheck[i]==dracGuild.roles.ARK);
+        // if this is true, you have the role
 
-  default:
+        if (x == true) {
+          message.member.removeRole(dracGuild.roles.ARK);
+          removeTheRole = 1;
+          break; //remove the role and break out of the for loop
+        }else{
+          //do nothing and continue
+        }
+      } // out of the for loop
 
-    triggers = 0;
-    break;
-  } // ends switch
+      if (removeTheRole){
+        message.react(reactEmoji);
+        break; //role removed, break out of the case
+      }else if(removeTheRole ==0){
+        message.member.addRole(dracGuild.roles.ARK);
+        message.react(reactEmoji);
+        break;//role added, break out of the case
+      }
+
+    case caseList[10]: // !BF
+      for (i = 0; i<roleCheck.length;i++){
+        var x = new Boolean(roleCheck[i]==dracGuild.roles.BF);
+        // if this is true, you have the role
+
+        if (x == true) {
+          message.member.removeRole(dracGuild.roles.BF);
+          removeTheRole = 1;
+          break; //remove the role and break out of the for loop
+        }else{
+          //do nothing and continue
+        }
+      } // out of the for loop
+
+      if (removeTheRole){
+        message.react(reactEmoji);
+        break; //role removed, break out of the case
+      }else if(removeTheRole ==0){
+        message.member.addRole(dracGuild.roles.BF);
+        message.react(reactEmoji);
+        break;//role added, break out of the case
+      }
+
+    case caseList[11]: // !ESO
+      for (i = 0; i<roleCheck.length;i++){
+        var x = new Boolean(roleCheck[i]==dracGuild.roles.ESO);
+        // if this is true, you have the role
+
+        if (x == true) {
+          message.member.removeRole(dracGuild.roles.ESO);
+          removeTheRole = 1;
+          break; //remove the role and break out of the for loop
+        }else{
+          //do nothing and continue
+        }
+      } // out of the for loop
+
+      if (removeTheRole){
+        message.react(reactEmoji);
+        break; //role removed, break out of the case
+      }else if(removeTheRole ==0){
+        message.member.addRole(dracGuild.roles.ESO);
+        message.react(reactEmoji);
+        break;//role added, break out of the case
+      }
+
+    case caseList[12]: // !Haven&Hearth
+      for (i = 0; i<roleCheck.length;i++){
+        var x = new Boolean(roleCheck[i]==dracGuild.roles.Haven);
+        // if this is true, you have the role
+
+        if (x == true) {
+          message.member.removeRole(dracGuild.roles.Haven);
+          removeTheRole = 1;
+          break; //remove the role and break out of the for loop
+        }else{
+          //do nothing and continue
+        }
+      } // out of the for loop
+
+      if (removeTheRole){
+        message.react(reactEmoji);
+        break; //role removed, break out of the case
+      }else if(removeTheRole ==0){
+        message.member.addRole(dracGuild.roles.Haven);
+        message.react(reactEmoji);
+        break;//role added, break out of the case
+      }
+
+    case caseList[13]: // !LOL
+      for (i = 0; i<roleCheck.length;i++){
+        var x = new Boolean(roleCheck[i]==dracGuild.roles.LOL);
+        // if this is true, you have the role
+
+        if (x == true) {
+          message.member.removeRole(dracGuild.roles.LOL);
+          removeTheRole = 1;
+          break; //remove the role and break out of the for loop
+        }else{
+          //do nothing and continue
+        }
+      } // out of the for loop
+
+      if (removeTheRole){
+        message.react(reactEmoji);
+        break; //role removed, break out of the case
+      }else if(removeTheRole ==0){
+        message.member.addRole(dracGuild.roles.LOL);
+        message.react(reactEmoji);
+        break;//role added, break out of the case
+      }
+
+    case caseList[14]: // !Minecraft
+      for (i = 0; i<roleCheck.length;i++){
+        var x = new Boolean(roleCheck[i]==dracGuild.roles.Minecraft);
+        // if this is true, you have the role
+
+        if (x == true) {
+          message.member.removeRole(dracGuild.roles.Minecraft);
+          removeTheRole = 1;
+          break; //remove the role and break out of the for loop
+        }else{
+          //do nothing and continue
+        }
+      } // out of the for loop
+
+      if (removeTheRole){
+        message.react(reactEmoji);
+        break; //role removed, break out of the case
+      }else if(removeTheRole ==0){
+        message.member.addRole(dracGuild.roles.Minecraft);
+        message.react(reactEmoji);
+        break;//role added, break out of the case
+      }
+
+    case caseList[15]: // !PUBG
+      for (i = 0; i<roleCheck.length;i++){
+        var x = new Boolean(roleCheck[i]==dracGuild.roles.PUBG);
+        // if this is true, you have the role
+
+        if (x == true) {
+          message.member.removeRole(dracGuild.roles.PUBG);
+          removeTheRole = 1;
+          break; //remove the role and break out of the for loop
+        }else{
+          //do nothing and continue
+        }
+      } // out of the for loop
+
+      if (removeTheRole){
+        message.react(reactEmoji);
+        break; //role removed, break out of the case
+      }else if(removeTheRole ==0){
+        message.member.addRole(dracGuild.roles.PUBG);
+        message.react(reactEmoji);
+        break;//role added, break out of the case
+      }
+
+    case caseList[16]: // !Terraria
+      for (i = 0; i<roleCheck.length;i++){
+        var x = new Boolean(roleCheck[i]==dracGuild.roles.Terraria);
+        // if this is true, you have the role
+
+        if (x == true) {
+          message.member.removeRole(dracGuild.roles.Terraria);
+          removeTheRole = 1;
+          break; //remove the role and break out of the for loop
+        }else{
+          //do nothing and continue
+        }
+      } // out of the for loop
+
+      if (removeTheRole){
+        message.react(reactEmoji);
+        break; //role removed, break out of the case
+      }else if(removeTheRole ==0){
+        message.member.addRole(dracGuild.role.Terraria);
+        message.react(reactEmoji);
+        break;//role added, break out of the case
+      }
+
+    case caseList[17]: // !fucksgiven
+      var numOfFucks = getRandomInt(20);
+      if (numOfFucks == 0){
+        message.channel.send("Damn! You give no fucks.");
+      } else if(numOfFucks == 20) {
+        message.channel.send("Woah! You give "+numOfFucks+"! Max fuckage!");
+      } else if (numOfFucks == 1) {
+        message.channel.send(":( Just a single fuck.");
+      }else {
+        message.channel.send("You give "+numOfFucks+" fucks.");
+      }
+      break;
+
+    case caseList[18]: // !havenserver
+      var personID = message.author.id;
+      var isBad = badPplFinder(personID);
+      console.log(isBad);
+      if (isBad){
+        message.channel.send("You do not have permission to use this command.");
+        break;
+      }
+      exec('ping game.havenandhearth.com', (err,stdout,stderr) => {
+        if (err){
+          return;
+        }
+        //console.log('stdout: ${stdout}',stdout);
+        // gotta parse through the message
+        var pos = stdout.indexOf("Lost"); //number of index where Lost will start
+        var importantPos = pos + 7;
+        var numOfLosses = stdout.substr(importantPos,1);
+
+        if (numOfLosses == "0"){
+          message.channel.send("The game server seems to be responding.");
+        } else if (numOfLosses == "4"){
+          message.channel.send("The game server appears to be down.");
+        } else {
+          message.channel.send("The game server may or may not be down.");
+        }
+        triggers = 1;
+      });
+
+      break;
+
+    case caseList[19]: //!doubt
+      message.channel.send({
+        files: ['https://cdn.discordapp.com/attachments/227597884646752256/428632515939532801/e02e5ffb5f980cd8262cf7f0ae00a4a9_press-x-to-doubt-memes-memesuper-la-noire-doubt-meme_419-238.png']
+      });
+      // (x) doubt meme
+      break;
+
+    default:
+
+      triggers = 0;
+      break;
+    } // ends switch
 
 if (message.content.startsWith(prefix+"bad")){
   triggers = 1;
   var name2 = message.author.id;
-  var owner = "215225483942428672";
   if (name2 == owner){
     var badPerson = message.content.substring(5,5+18);
 
