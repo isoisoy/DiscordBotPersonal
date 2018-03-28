@@ -8,3 +8,7 @@ node_modules/npm/.mailmap
 node_modules/npm/AUTHORS
 *.yml
 /**/node_modules/**/*
+mybot.js
+havenservertester.js
+package-lock.json
+package.json

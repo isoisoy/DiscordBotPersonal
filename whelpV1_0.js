@@ -17,7 +17,8 @@ client.on("ready", () => {
   }
 });*/
 // Constants
-const owner = "215225483942428672"; // my own id
+//var owner = "215225483942428672" // my own id 215225483942428672
+var owner
 // Bot related
 const prefix = config.prefix;
 
@@ -43,7 +44,7 @@ const caseList = [
   "PUBG",                // 15
   "Terraria",            // 16
   "fucksgiven",          // 17
-  "havenserver"          // 18
+  "havenserver"         // 18
 ];
 
 
@@ -201,8 +202,10 @@ client.on("message", (message) => {
     break;
 
   case caseList[8]: // !me
-
+    var owner = "215225483942428672";
     var name2 = message.author.id;
+    console.log(name2);
+    var nameRe = String(name2);
     if (name2 == owner){
       message.channel.send("You are "+name+", silly! You're a piece of shit!");
     } else {
@@ -408,6 +411,13 @@ client.on("message", (message) => {
     break;
 
   case caseList[18]: // !havenserver
+    var personID = message.author.id;
+    var isBad = badPplFinder(personID);
+    console.log(isBad);
+    if (isBad){
+      message.channel.send("You do not have permission to use this command.");
+      break;
+    }
     exec('ping game.havenandhearth.com', (err,stdout,stderr) => {
       if (err){
         return;
@@ -436,6 +446,37 @@ client.on("message", (message) => {
     break;
   } // ends switch
 
+if (message.content.startsWith(prefix+"bad")){
+  triggers = 1;
+  var name2 = message.author.id;
+  var owner = "215225483942428672";
+  if (name2 == owner){
+    var badPerson = message.content.substring(5,5+18);
+
+    var badPersonAndDesc = message.content.substring(5);
+
+
+    isBad = badPplFinder(badPerson);
+
+
+    if (isBad){
+      // do nothing
+      message.channel.send("That person is already bad.");
+    } else{
+      //add them to the list
+      fs.appendFile('badppl.txt',badPersonAndDesc, function (err) {
+          if (err) throw err;
+          console.log('Saved!');
+        });
+    }
+  }else{
+    message.channel.send("You do not have permission to perform this command.");
+  }
+}
+
+
+
+
   var reporttxt = " asked me ";
   var tagName = name.username;
   var badReportTxt = " tried to use ";
@@ -454,11 +495,37 @@ client.on("message", (message) => {
 client.login(config.token);
 
 // Functions
+// function for the certain commands that shouldn't be listed
 function notAllowed(){
   var i
   return i == 4 || i == 5
 }
 
+//randome num gen
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
+}
+
+// bad ppl finder
+function badPplFinder(id) {
+  var text = fs.readFileSync('badppl.txt','utf8');
+  id = String(id);
+  // ids are 18 chars long, starts 25 next
+  var theBadPeople = [];
+  lengthBad = text.length;
+  var iter = lengthBad/25;
+  var isBad = 0;
+  var j = 0;
+  for (var i = 0; i < iter; i++){
+    theBadPeople[i] = text.substring(j,j+18);
+    j = j+25;
+  }
+  for (var k = 0; k < iter; k++){
+    if (theBadPeople[k]==id){
+      //message.channel.send("That is already a bad person.");
+      isBad = 1;
+    }
+  }
+
+  return isBad
 }

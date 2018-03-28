@@ -12,7 +12,10 @@ client.on("ready", () => {
 
 client.on("message", (message) =>{
   if (message.content.startsWith("#bad")){
-    var badPerson = message.content.substring(5,5+17);
+    var badPerson = message.content.substring(5,5+18);
+    badPerson = String(badPerson);
+    //var badPerson = '215225483942428672';
+    //console.log(badPerson);
     var badPersonAndDesc = message.content.substring(5);
     var text = fs.readFileSync('badppl.txt','utf8');
     // ids are 18 chars long, starts 25 next
@@ -25,6 +28,8 @@ client.on("message", (message) =>{
       theBadPeople[i] = text.substring(j,j+18);
       j = j+25;
     }
+    //console.log(text);
+    //console.log(theBadPeople);
     for (var k = 0; k < iter; k++){
       if (theBadPeople[k]==badPerson){
         message.channel.send("That is a bad person.");
