@@ -58,14 +58,20 @@ client.on("guildMemberAdd", (addedMember) =>{
   var guildAdded = addedMember.guild.id;
 
   if (guildAdded == dracGuild.guildID){
-    var msg = "Welcome to Draconian Argentum! I am Whelp and I help you get around on the server. ";
+    var msg = ":flag_gb: Welcome to **Draconian Argentum**! I am Whelp and I help you get around on the server. ";
     client.guilds.get(dracGuild.guildID).channels.get(dracGuild.welcomeChat).send("Hello "+displayedName+"! "+msg+
-      "\nOlá! Seja bem vindo a Draconian Argentum! Eu sou Whelp e vou te ajudar a se acertar no servidor.");
-    client.guilds.get(dracGuild.guildID).channels.get(dracGuild.botReport).send(userTag+" You can send me commands in this channel. For more information, send '!help'.\n"+
-      "Você pode me enviar comandos neste canal. Para mais informações, digite '!ajuda'.");
+      "\n\n :flag_br: Olá! Seja bem vindo a **Draconian Argentum**! Eu sou Whelp e vou te ajudar a se acertar no servidor.");
+    client.guilds.get(dracGuild.guildID).channels.get(dracGuild.botReport).send(userTag+":flag_gb: You can send me commands in this channel. For more information, send '!help'.\n\n"+
+      ":flag_br: Você pode me enviar comandos neste canal. Para mais informações, digite '!ajuda'.");
   }else{
-    client.guilds.get(botGuild.guildID).channels.get(botGuild.genChat).send("hello");
-    client.guilds.get(botGuild.guildID).channels.get(botGuild.genChat).send(userTag+" You can send me commands in this channel. For more information, send '!help'");
+    var msg = ":flag_gb Welcome to **Draconian Argentum**! I am Whelp and I help you get around on the server. ";
+    client.guilds.get(botGuild.guildID).channels.get(botGuild.genChat).send("Hello "+displayedName+"! "+msg+
+      "\n\n :flag_br: Olá! Seja bem vindo a **Draconian Argentum**! Eu sou Whelp e vou te ajudar a se acertar no servidor.");
+    client.guilds.get(botGuild.guildID).channels.get(botGuild.genChat).send(userTag+":flag_gb: You can send me commands in this channel. For more information, send '!help'.\n\n"+
+      ":flag_br: Você pode me enviar comandos neste canal. Para mais informações, digite '!ajuda'.");
+
+    //client.guilds.get(botGuild.guildID).channels.get(botGuild.genChat).send("hello");
+    //client.guilds.get(botGuild.guildID).channels.get(botGuild.genChat).send(userTag+" You can send me commands in this channel. For more information, send '!help'");
   }
 });
 
@@ -405,6 +411,8 @@ client.on("message", (message) => {
         message.channel.send("Woah! You give "+numOfFucks+"! Max fuckage!");
       } else if (numOfFucks == 1) {
         message.channel.send(":( Just a single fuck.");
+      }else if(numOfFucks == 21){
+        message.channel.send("Ayyyyyy 21 fucks!");
       }else {
         message.channel.send("You give "+numOfFucks+" fucks.");
       }
@@ -509,7 +517,7 @@ function notAllowed(){
 
 //randome num gen
 function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
+  return Math.floor(Math.random() * Math.floor(max+1));
 }
 
 // bad ppl finder
