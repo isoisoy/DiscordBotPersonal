@@ -21,9 +21,9 @@ var removeTheRole;
 var messageR;
 
 // Constants
-var owner = specPpl.Iso; // my own id 215225483942428672
-var Dani = specPpl.Dani;
-var Gamb = specPpl.Gambit;
+const owner = specPpl.Iso; // my own id 215225483942428672
+const Dani = specPpl.Dani;
+const Gamb = specPpl.Gambit;
 
 
 // Bot related
@@ -220,7 +220,11 @@ client.on("message", (message) => {
 
       if (name2 == owner){
         message.channel.send("You are "+name+", you piece of shit.");
-      } else {
+      } else if(name2 == Dani){
+        message.channel.send("You are Dani! I'm so happy to see you!");
+      }else if (name2 == Gamb){
+        message.channel.send("You are childish Gambino.");        
+      }else {
         message.channel.send("You are "+name+"!");
       }
       break;
