@@ -385,12 +385,12 @@ function roleMod(roleAssign,messageR){
 
   if (removeTheRole){
     messageR.member.removeRole(roleAssign);
-    messageR.channel.send("Role removed.");
+    //messageR.channel.send("Role removed.");
     messageR.react(reactEmoji);
      //role removed
   }else if(removeTheRole ==0){
     messageR.member.addRole(roleAssign);
-    messageR.channel.send("Role added.");
+    //messageR.channel.send("Role added.");
     messageR.react(reactEmoji);
     //role added
   }
