@@ -69,7 +69,9 @@ client.on("guildMemberAdd", (addedMember) =>{
   if (guildAdded == dracGuild.guildID){
     var msg = ":flag_gb: Welcome to **Draconian Argentum**! I am Whelp and I help you get around on the server. ";
     client.guilds.get(dracGuild.guildID).channels.get(dracGuild.welcomeChat).send("Hello "+displayedName+"! "+msg+
-      "\n\n :flag_br: Olá! Seja bem vindo a **Draconian Argentum**! Eu sou Whelp e vou te ajudar a se acertar no servidor.");
+      "I've left you a message in the #bot channel."+
+      "\n\n :flag_br: Olá! Seja bem vindo a **Draconian Argentum**! Eu sou Whelp e vou te ajudar a se acertar no servidor. "+
+      "Te deixei uma mensagem no canal #bot.");
     client.guilds.get(dracGuild.guildID).channels.get(dracGuild.botReport).send(userTag+":flag_gb: You can send me commands in this channel. For more information, send '!help'.\n\n"+
       ":flag_br: Você pode me enviar comandos neste canal. Para mais informações, digite '!ajuda'.");
   }else{
