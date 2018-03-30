@@ -24,6 +24,8 @@ var messageR;
 const owner = specPpl.Iso; // my own id 215225483942428672
 const Dani = specPpl.Dani;
 const Gamb = specPpl.Gambit;
+const Snik = specPpl.Nikita;
+const Jynx = specPpl.Jynx;
 
 
 // Bot related
@@ -52,7 +54,8 @@ const caseList = [
   "Terraria",            // 16
   "fucksgiven",          // 17
   "havenserver",         // 18
-  "doubt"                // 19
+  "doubt",               // 19
+  "truestory"            // 20
 ];
 
 
@@ -188,8 +191,8 @@ client.on("message", (message) => {
       break;
 
     case caseList[4]: // !emoji
-      var name2 = message.author.id;
-      if (name2 == owner){
+      var name4 = message.author.id;
+      if (name4 == owner){
         var emojis = message.guild.emojis;
         console.log(emojis);
       }
@@ -218,14 +221,22 @@ client.on("message", (message) => {
 
       var name2 = message.author.id;
 
-      if (name2 == owner){
-        message.channel.send("You are "+name+", you piece of shit.");
-      } else if(name2 == Dani){
-        message.channel.send("You are Dani! I'm so happy to see you!");
-      }else if (name2 == Gamb){
-        message.channel.send("You are childish Gambino.");        
-      }else {
-        message.channel.send("You are "+name+"!");
+      switch(name2){
+        case owner:
+          message.channel.send("You are "+name+", you piece of shit.");
+          break;
+        case Dani:
+          message.channel.send("You are Dani! I'm so happy to see you!");
+          break;
+        case Gamb:
+          message.channel.send("You are childish Gambino.");
+          break;
+        case Snik:
+          message.channel.send("You are snik-snak!");
+          break;
+        default:
+          message.channel.send("You are "+name+"!");
+          break;
       }
       break;
 
@@ -271,18 +282,36 @@ client.on("message", (message) => {
 
     case caseList[17]: // !fucksgiven
       var numOfFucks = getRandomInt(20);
-      if (numOfFucks == 0){
-        message.channel.send("Damn! You give no fucks.");
-      } else if(numOfFucks == 20) {
-        message.channel.send("Woah! You give "+numOfFucks+"! Max fuckage!");
-      } else if (numOfFucks == 1) {
-        message.channel.send(":( Just a single fuck.");
-      }else if(numOfFucks == 21){
-        message.channel.send("Ayyyyyy 21 fucks!");
-      }else {
-        message.channel.send("You give "+numOfFucks+" fucks.");
+      let asker = message.author.id;
+      if (asker != Jynx){
+        if (numOfFucks == 0){
+          message.channel.send("Damn! You give no fucks.");
+        } else if(numOfFucks == 20) {
+          message.channel.send("Woah! You give "+numOfFucks+"! Max fuckage!");
+        } else if (numOfFucks == 1) {
+          message.channel.send(":( Just a single fuck.");
+        }else if(numOfFucks == 21){
+          message.channel.send("Ayyyyyy 21 fucks!");
+        }else {
+          message.channel.send("You give "+numOfFucks+" fucks.");
+        }
+      }else{
+        if (isOdd(numOfFucks)){
+          message.channel.send("You give "+numOfFucks+" fucks.");
+        } else if (numOfFucks == 20){
+          message.channel.send("You sure you don't have like 20 fucks to give out?");
+        } else if (numOfFucks == 2){
+          message.channel.send("I can't tell. I can't even.");
+        } else if (numOfFucks == 6){
+          message.channel.send("Not sure. Will consider.");
+        } else if(numOfFucks == 1){
+          message.channel.send("One! You only give ONE fuck. You happy yet?");
+        }else{
+          message.channel.send("You give "+numOfFucks+" fucks.");
+        }
       }
-      break;
+
+        break;
 
     case caseList[18]: // !havenserver
       var personID = message.author.id;
@@ -321,6 +350,13 @@ client.on("message", (message) => {
       // (x) doubt meme
       break;
 
+    case caseList[20]: // !truestory
+      message.channel.send({
+        files: ['https://cdn.discordapp.com/attachments/409071061527691266/429088221176266752/TRUESTORY.png']
+      });
+      //true story meme
+      break;
+
     default:
       triggers = 0;
       break;
@@ -328,8 +364,8 @@ client.on("message", (message) => {
     // for putting people in jail
     if (message.content.startsWith(prefix+"bad")){
       triggers = 1;
-      var name2 = message.author.id;
-      if (name2 == owner){
+      var name3 = message.author.id;
+      if (name3 == owner){
         var badPerson = message.content.substring(5,5+18);
 
         var badPersonAndDesc = message.content.substring(5);
@@ -434,4 +470,8 @@ function badPplFinder(id) {
   }
 
   return isBad
+}
+
+function isOdd(num) {
+  return num % 2;
 }
