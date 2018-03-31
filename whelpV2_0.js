@@ -26,6 +26,11 @@ const Dani = specPpl.Dani;
 const Gamb = specPpl.Gambit;
 const Snik = specPpl.Nikita;
 const Jynx = specPpl.Jynx;
+const Sea = specPpl.Sea;
+const Hiei = specPpl.Hiei;
+const Kinga = specPpl.Kinga;
+const Mads = specPpl.Mads;
+const DanGar = specPpl.DanGar;
 
 
 // Bot related
@@ -235,6 +240,24 @@ client.on("message", (message) => {
           break;
         case Snik:
           message.channel.send("You are snik-snak!");
+          break;
+        case Sea:
+          message.channel.send("Hey Puddle!");
+          break;
+        case Kinga:
+          message.channel.send("You are the polska onion!");
+          break;
+        case Mads:
+          message.channel.send("Ey, you are Mads. Psure.");
+          break;
+        case DanGar:
+          message.channel.send("You're the Danny DeVito boy. JK! You're Dan Gar.");
+          break;
+        case Jynx:
+          message.channel.send("It's a you, Jynxsu!");
+          break;
+        case Hiei:
+          message.channel.send("Oh hai! You're my sempai!");
           break;
         default:
           message.channel.send("You are "+name+"!");

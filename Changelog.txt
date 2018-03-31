@@ -11,7 +11,9 @@ Added roleMod() function when takes in the role to evaluate and the message obje
 Moved defined variables to the top
 Added extra text for special persons: Dani, Gambit, Snik, Jynx
 Added !truestory command sends true story image
-Added isOdd command
+Added isOdd function
+Added special text for Sea
+Added special text for Kinga, Jynx, Hiei, Mads, Dan Gar
 
 V2.1.1
 Date: 3/27/18
