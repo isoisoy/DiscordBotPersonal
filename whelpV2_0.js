@@ -341,7 +341,7 @@ client.on("message", (message) => {
     case caseList[18]: // !havenserver
       var personID = message.author.id;
       var isBad = badPplFinder(personID);
-      console.log(isBad);
+      //console.log(isBad);
       if (isBad){
         message.channel.send("You do not have permission to use this command.");
         break;
