@@ -31,6 +31,7 @@ const Hiei = specPpl.Hiei;
 const Kinga = specPpl.Kinga;
 const Mads = specPpl.Mads;
 const DanGar = specPpl.DanGar;
+const Ber = specPpl.Beronica;
 
 
 // Bot related
@@ -236,7 +237,7 @@ client.on("message", (message) => {
           message.channel.send("You are Dani! I'm so happy to see you!");
           break;
         case Gamb:
-          message.channel.send("You are childish Gambino.");
+          message.channel.send("Hey, Gambit! Go back to digging dirt!");
           break;
         case Snik:
           message.channel.send("You are snik-snak!");
@@ -258,6 +259,9 @@ client.on("message", (message) => {
           break;
         case Hiei:
           message.channel.send("Oh hai! You're my sempai!");
+          break;
+        case Ber:
+          message.channel.send("It's you! The best Ber in the world!");
           break;
         default:
           message.channel.send("You are "+name+"!");

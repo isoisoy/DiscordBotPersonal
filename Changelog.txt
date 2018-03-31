@@ -13,7 +13,7 @@ Added extra text for special persons: Dani, Gambit, Snik, Jynx
 Added !truestory command sends true story image
 Added isOdd function
 Added special text for Sea
-Added special text for Kinga, Jynx, Hiei, Mads, Dan Gar
+Added special text for Kinga, Jynx, Hiei, Mads, Dan Gar, Ber
 
 V2.1.1
 Date: 3/27/18
