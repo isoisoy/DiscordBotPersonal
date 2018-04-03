@@ -61,7 +61,8 @@ const caseList = [
   "fucksgiven",          // 17
   "havenserver",         // 18
   "doubt",               // 19
-  "truestory"            // 20
+  "truestory",           // 20
+  "Iso"                 // 21
 ];
 
 
@@ -384,6 +385,17 @@ client.on("message", (message) => {
         files: ['https://cdn.discordapp.com/attachments/409071061527691266/429088221176266752/TRUESTORY.png']
       });
       //true story meme
+      break;
+
+    case caseList[21]: // !note
+      client.guilds.get(botGuild.guildID).channels.get(botGuild.IsoChat).fetchMessages({limit:1})
+      .then(messagesf =>{
+        let mapper = messagesf.array();
+        let actualMessage = mapper[0].content;
+        message.channel.send("Iso "+actualMessage);
+
+      });
+
       break;
 
     default:
