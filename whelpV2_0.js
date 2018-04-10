@@ -138,6 +138,13 @@ client.on("message", (message) => {
   if (channelType == acceptedType) {
     return;
   }
+  var personID = message.author.id;
+  var isBad = badPplFinder(personID);
+  //console.log(isBad);
+  if (isBad){
+    message.channel.send("You do not have permission to use this command.");
+    return;
+  }
   var contentsMess = message.content.split(' ');
   var cmd = contentsMess[0];
   var name = message.author;

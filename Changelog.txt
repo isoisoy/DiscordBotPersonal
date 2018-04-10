@@ -8,6 +8,7 @@ Added special !fucksgiven
 Added !8ball command
 Added !otter command that sends a picture of an otter randomly selected from
 	the otter spam chat
+Moved the isBad() checker to the beginning
 
 
 V2.2.0
