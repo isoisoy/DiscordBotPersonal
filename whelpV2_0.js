@@ -508,8 +508,8 @@ client.on("message", (message) => {
         //console.log(ottermap);
         let otterLength = otterMap.length;
         let otterRoll = getRandomInt(otterLength);
-        console.log(otterLength);
-        console.log(otterRoll);
+        //console.log(otterLength);
+        //console.log(otterRoll);
         if (otterRoll == otterLength){
           otterRoll = otterLength - 1;
         }
