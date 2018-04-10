@@ -15,6 +15,7 @@ Added isOdd function
 Added special text for Sea
 Added special text for Kinga, Jynx, Hiei, Mads, Dan Gar, Ber
 Added !Iso command that reports what I am doing after I add something to the #isoshit channel
+Removed !havenserver command
 
 V2.1.1
 Date: 3/27/18

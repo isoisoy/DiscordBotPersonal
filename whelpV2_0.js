@@ -344,7 +344,7 @@ client.on("message", (message) => {
         break;
 
     case caseList[18]: // !havenserver
-      var personID = message.author.id;
+      /*var personID = message.author.id;
       var isBad = badPplFinder(personID);
       //console.log(isBad);
       if (isBad){
@@ -370,7 +370,8 @@ client.on("message", (message) => {
         }
         triggers = 1;
       });
-
+      */
+      triggers = 0;
       break;
 
     case caseList[19]: //!doubt
@@ -481,7 +482,7 @@ function roleMod(roleAssign,messageR){
 // function for the certain commands that shouldn't be listed
 function notAllowed(){
   var i
-  return i == 4 || i == 5
+  return i == 4 || i == 5 || i == 18
 }
 
 //randome num gen
