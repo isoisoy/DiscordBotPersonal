@@ -32,6 +32,11 @@ const Kinga = specPpl.Kinga;
 const Mads = specPpl.Mads;
 const DanGar = specPpl.DanGar;
 const Ber = specPpl.Beronica;
+const Hola = specPpl.Hola;
+const Batsi = specPpl.Batsi;
+const BestNicky = specPpl.BestNicky;
+const Bjarke = specPpl.Bjarke;
+const Sancho = specPpl.Sancho;
 
 
 // Bot related
@@ -62,7 +67,9 @@ const caseList = [
   "havenserver",         // 18
   "doubt",               // 19
   "truestory",           // 20
-  "Iso"                 // 21
+  "Iso",                 // 21
+  "8ball",               // 22
+  "otter"                // 23
 ];
 
 
@@ -223,7 +230,7 @@ client.on("message", (message) => {
       break;
 
     case caseList[7]: // !ping
-      message.channel.send("NO! NO PONG!");
+      message.channel.send("ok, maybe a little pong.");
       break;
 
     case caseList[8]: // !me
@@ -263,6 +270,21 @@ client.on("message", (message) => {
           break;
         case Ber:
           message.channel.send("It's you! The best Ber in the world!");
+          break;
+        case Hola:
+          message.channel.send("You're *translates* hello friend! I'm mulitlingual, baby!");
+          break;
+        case Batsi:
+          message.channel.send("You're the undead batman!");
+          break;
+        case BestNicky:
+          message.channel.send("You're the best Nicky Parsons!");
+          break;
+        case Sancho:
+          message.channel.send("You....you stole my creator's last name. JK You're the gold digger Sancho. :smirk:");
+          break;
+        case Bjarke:
+          message.channel.send("You're bjarbjar!");
           break;
         default:
           message.channel.send("You are "+name+"!");
@@ -344,6 +366,7 @@ client.on("message", (message) => {
         break;
 
     case caseList[18]: // !havenserver
+      message.channel.send("That command has been depreciated.");
       /*var personID = message.author.id;
       var isBad = badPplFinder(personID);
       //console.log(isBad);
@@ -388,7 +411,7 @@ client.on("message", (message) => {
       //true story meme
       break;
 
-    case caseList[21]: // !note
+    case caseList[21]: // !Iso
       client.guilds.get(botGuild.guildID).channels.get(botGuild.IsoChat).fetchMessages({limit:1})
       .then(messagesf =>{
         let mapper = messagesf.array();
@@ -399,10 +422,117 @@ client.on("message", (message) => {
 
       break;
 
+    case caseList[22]: // !8ball
+      let ballnum = getRandomInt(20);
+      switch (ballnum){
+        case 0:
+          message.channel.send("Without a doubt.");
+          break;
+        case 1:
+          message.channel.send("It is certain.");
+          break;
+        case 2:
+          message.channel.send("Reply hazy, try again.");
+          break;
+        case 3:
+          message.channel.send("Don't count on it.");
+          break;
+        case 4:
+          message.channel.send("As I see it, yes.");
+          break;
+        case 5:
+          message.channel.send("Ask again later.");
+          break;
+        case 6:
+          message.channel.send("My reply is no.");
+          break;
+        case 7:
+          message.channel.send("It is decidedly so.");
+          break;
+        case 8:
+          message.channel.send("Most likely.");
+          break;
+        case 9:
+          message.channel.send("Better not tell you now.");
+          break;
+        case 10:
+          message.channel.send("My sources say no.");
+          break;
+        case 11:
+          message.channel.send("Outlook good.");
+          break;
+        case 12:
+          message.channel.send("Yes, definitely.");
+          break;
+        case 13:
+          message.channel.send("Cannot predict now.");
+          break;
+        case 14:
+          message.channel.send("Outlook not so good.");
+          break;
+        case 15:
+          message.channel.send("Yes.");
+          break;
+        case 16:
+          message.channel.send("You may rely on it.");
+          break;
+        case 17:
+          message.channel.send("Concentrate and ask again.");
+          break;
+        case 18:
+          message.channel.send("Very doubtful.");
+          break;
+        case 19:
+          message.channel.send("Signs point to yes.");
+          break;
+        case 20:
+          message.channel.send("Will consider.");
+          break;
+      }
+      break;
+
+    case caseList[23]: // !otter
+      client.guilds.get(botGuild.guildID).channels.get(botGuild.otterChat).fetchMessages({limit:50})
+      .then(messagesO => {
+        let otterMap = messagesO.array();
+        //console.log(ottermap);
+        let otterLength = otterMap.length;
+        let otterRoll = getRandomInt(otterLength);
+        console.log(otterLength);
+        console.log(otterRoll);
+        if (otterRoll == otterLength){
+          otterRoll = otterLength - 1;
+        }
+        let otterThis = otterMap[otterRoll];
+        //console.log(otterThis);
+        let otterPic = otterThis.content;
+        message.channel.send(otterPic);
+      });
+      break;
+
     default:
       triggers = 0;
       break;
     } // ends switch
+
+    // special fucksgiven
+    if (message.content.startsWith(prefix+"fucksgiven")){
+      triggers = 1;
+      var numerOfFucks = getRandomInt(20);
+      let asker = message.author.id;
+        if (numerOfFucks == 0){
+          message.channel.send("Damn! You give no fucks about that.");
+        } else if(numerOfFucks == 20) {
+          message.channel.send("Woah! You give 20 fucks about that! Max fuckage!");
+        } else if (numerOfFucks == 1) {
+          message.channel.send(":( Just a single fuck.");
+        }else if(numerOfFucks == 21){
+          message.channel.send("Ayyyyyy 21 fucks!");
+        }else {
+          message.channel.send("You give "+numerOfFucks+" fucks.");
+        }
+    }
+
     // for putting people in jail
     if (message.content.startsWith(prefix+"bad")){
       triggers = 1;

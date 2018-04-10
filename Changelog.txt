@@ -1,9 +1,17 @@
 Discord Bot: Whelp
 
+V2.2.1
+Date: 4/10/18
+Added fluff for Hola, Batsi, bjarke, sancho, best nicky parsons
+Edited the !ping message
+Added special !fucksgiven
+Added !8ball command
+Added !otter command that sends a picture of an otter randomly selected from
+	the otter spam chat
 
 
 V2.2.0
-Date: 3/27/18
+Date: 3/27/18-4/10/18
 Added the bad people list and !bad command
 Added !doubt command which sends the image doubt
 Added roleMod() function when takes in the role to evaluate and the message object
@@ -14,7 +22,8 @@ Added !truestory command sends true story image
 Added isOdd function
 Added special text for Sea
 Added special text for Kinga, Jynx, Hiei, Mads, Dan Gar, Ber
-Added !Iso command that reports what I am doing after I add something to the #isoshit channel
+Added !Iso command that reports what I am doing after I add something to the
+	#isoshit channel
 Removed !havenserver command
 
 V2.1.1
