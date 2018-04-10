@@ -19,6 +19,7 @@ var roleCheck;
 var roleList;
 var removeTheRole;
 var messageR;
+var fuck;
 
 // Constants
 const owner = specPpl.Iso; // my own id 215225483942428672
@@ -153,6 +154,7 @@ client.on("message", (message) => {
   roleCheck = roleList.map(r => r.id);
   removeTheRole = 0;
   var triggers = 1;
+  fuck = 0;
 
   // if someone tries a command of their nickname
   var messageCheck = message.content.substring(1);
@@ -341,6 +343,7 @@ client.on("message", (message) => {
 
     case caseList[17]: // !fucksgiven
       var numOfFucks = getRandomInt(20);
+      fuck = 1;
       let asker = message.author.id;
       if (asker != Jynx){
         if (numOfFucks == 0){
@@ -522,22 +525,24 @@ client.on("message", (message) => {
       break;
     } // ends switch
 
-    // special fucksgiven
-    if (message.content.startsWith(prefix+"fucksgiven")){
-      triggers = 1;
-      var numerOfFucks = getRandomInt(20);
-      let asker = message.author.id;
-        if (numerOfFucks == 0){
-          message.channel.send("Damn! You give no fucks about that.");
-        } else if(numerOfFucks == 20) {
-          message.channel.send("Woah! You give 20 fucks about that! Max fuckage!");
-        } else if (numerOfFucks == 1) {
-          message.channel.send(":( Just a single fuck.");
-        }else if(numerOfFucks == 21){
-          message.channel.send("Ayyyyyy 21 fucks!");
-        }else {
-          message.channel.send("You give "+numerOfFucks+" fucks.");
-        }
+    if (fuck == 0){
+      // special fucksgiven
+      if (message.content.startsWith(prefix+"fucksgiven")){
+        triggers = 1;
+        var numerOfFucks = getRandomInt(20);
+        let asker = message.author.id;
+          if (numerOfFucks == 0){
+            message.channel.send("Damn! You give no fucks about that.");
+          } else if(numerOfFucks == 20) {
+            message.channel.send("Woah! You give 20 fucks about that! Max fuckage!");
+          } else if (numerOfFucks == 1) {
+            message.channel.send(":( Just a single fuck.");
+          }else if(numerOfFucks == 21){
+            message.channel.send("Ayyyyyy 21 fucks!");
+          }else {
+            message.channel.send("You give "+numerOfFucks+" fucks.");
+          }
+      }
     }
 
     // for putting people in jail
