@@ -9,6 +9,8 @@ Added !8ball command
 Added !otter command that sends a picture of an otter randomly selected from
 	the otter spam chat
 Moved the isBad() checker to the beginning
+Fixed list viewed
+Fixed Jynx 1 fuck
 
 
 V2.2.0

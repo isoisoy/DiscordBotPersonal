@@ -197,7 +197,7 @@ client.on("message", (message) => {
       for (var i = 0; i < caseList.length; i++) {
         if (notAllowed()) {
         }else {
-          commandList += caseList[i] + "\n";
+          commandList += prefix+caseList[i] + "\n";
         }
       }
       message.author.send("This is the list of my commands. \n"+commandList);
@@ -209,7 +209,7 @@ client.on("message", (message) => {
       for (var i = 0; i < caseList.length; i++) {
         if (i == 4 || i == 5) {
         }else {
-          commandList += caseList[i] + "\n";
+          commandList += prefix+caseList[i] + "\n";
         }
       }
       message.author.send("Essa é a lista de meus comandos. \n"+commandList);
@@ -358,15 +358,15 @@ client.on("message", (message) => {
           message.channel.send("You give "+numOfFucks+" fucks.");
         }
       }else{
-        if (isOdd(numOfFucks)){
-          message.channel.send("You give "+numOfFucks+" fucks.");
+        if (numOfFucks == 1){
+          message.channel.send("You give JUST 1 (ONE) one fuck.");
         } else if (numOfFucks == 20){
           message.channel.send("You sure you don't have like 20 fucks to give out?");
         } else if (numOfFucks == 2){
           message.channel.send("I can't tell. I can't even.");
         } else if (numOfFucks == 6){
           message.channel.send("Not sure. Will consider.");
-        } else if(numOfFucks == 1){
+        } else if(isOdd(numOfFucks)){
           message.channel.send("One! You only give ONE fuck. You happy yet?");
         }else{
           message.channel.send("You give "+numOfFucks+" fucks.");
