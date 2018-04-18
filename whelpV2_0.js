@@ -7,6 +7,7 @@ const config = require("./config.json");
 const botGuild = require("./botguild.json"); //Bot Guild IDs
 const dracGuild = require("./dracarg.json"); //Draconian Argentum Guild IDs
 const specPpl = require("./specialPeople.json"); // Special People IDS
+var embed = new Discord.RichEmbed();
 
 client.on("ready", () => {
   console.log("I am ready!");
@@ -70,7 +71,8 @@ const caseList = [
   "truestory",           // 20
   "Iso",                 // 21
   "8ball",               // 22
-  "otter"                // 23
+  "otter",                // 23
+  "coords"                //24
 ];
 
 
@@ -523,55 +525,80 @@ client.on("message", (message) => {
     default:
       triggers = 0;
       break;
-    } // ends switch
+  } // ends switch
 
-    if (fuck == 0){
-      // special fucksgiven
-      if (message.content.startsWith(prefix+"fucksgiven")){
-        triggers = 1;
-        var numerOfFucks = getRandomInt(20);
-        let asker = message.author.id;
-          if (numerOfFucks == 0){
-            message.channel.send("Damn! You give no fucks about that.");
-          } else if(numerOfFucks == 20) {
-            message.channel.send("Woah! You give 20 fucks about that! Max fuckage!");
-          } else if (numerOfFucks == 1) {
-            message.channel.send(":( Just a single fuck.");
-          }else if(numerOfFucks == 21){
-            message.channel.send("Ayyyyyy 21 fucks!");
-          }else {
-            message.channel.send("You give "+numerOfFucks+" fucks.");
-          }
-      }
-    }
-
-    // for putting people in jail
-    if (message.content.startsWith(prefix+"bad")){
+  if (fuck == 0){
+    // special fucksgiven
+    if (message.content.startsWith(prefix+"fucksgiven")){
       triggers = 1;
-      var name3 = message.author.id;
-      if (name3 == owner){
-        var badPerson = message.content.substring(5,5+18);
-
-        var badPersonAndDesc = message.content.substring(5);
-
-
-        isBad = badPplFinder(badPerson);
-
-
-        if (isBad){
-          // do nothing
-          message.channel.send("That person is already bad.");
-        } else{
-          //add them to the list
-          fs.appendFile('badppl.txt',badPersonAndDesc, function (err) {
-              if (err) throw err;
-              console.log('Saved!');
-            });
+      var numerOfFucks = getRandomInt(20);
+      let asker = message.author.id;
+        if (numerOfFucks == 0){
+          message.channel.send("Damn! You give no fucks about that.");
+        } else if(numerOfFucks == 20) {
+          message.channel.send("Woah! You give 20 fucks about that! Max fuckage!");
+        } else if (numerOfFucks == 1) {
+          message.channel.send(":( Just a single fuck.");
+        }else if(numerOfFucks == 21){
+          message.channel.send("Ayyyyyy 21 fucks!");
+        }else {
+          message.channel.send("You give "+numerOfFucks+" fucks.");
         }
-      }else{
-        message.channel.send("You do not have permission to perform this command.");
-      }
     }
+  }
+
+  // for putting people in jail
+  if (message.content.startsWith(prefix+"bad")){
+    triggers = 1;
+    var name3 = message.author.id;
+    if (name3 == owner){
+      var badPerson = message.content.substring(5,5+18);
+      var badPersonAndDesc = message.content.substring(5);
+      isBad = badPplFinder(badPerson);
+      if (isBad){
+        // do nothing
+        message.channel.send("That person is already bad.");
+      } else{
+        //add them to the list
+        fs.appendFile('badppl.txt',badPersonAndDesc, function (err) {
+            if (err) throw err;
+            console.log('Saved!');
+          });
+      }
+    }else{
+      message.channel.send("You do not have permission to perform this command.");
+    }
+  }
+
+  if (message.content.startsWith(prefix+"coords")){
+    let theCoords = message.content.substring(8);
+    let indivCoords = theCoords.split(',');
+    let xCoord = indivCoords[0];
+    let yCoord = indivCoords[1];
+    if (Number(xCoord)>125||Number(xCoord)<-125){
+      message.channel.send("The x-coordinate is out of bounds.");
+    }else if(Number(yCoord)>125||Number(yCoord)<-125){
+      message.channel.send("The y-coordinate is out of bounds.");
+    }else{
+      let page1 = "http:";
+      let pagea = "//odditown.com/haven/map/#x=";
+      let page2 = "&y=";
+      let page3 = "&zoom=8";
+      let fullSite = pagea.concat(xCoord,page2,yCoord,page3);
+      let fullSite2 = page1.concat(fullSite);
+      let fancyCoords = xCoord.concat(", ",yCoord);
+      let picture = "http://www.odditown.com/haven/map/tiles/9/"+xCoord+'_'+yCoord+'.png';
+      let trulyFancy = fancyCoords.concat("(",picture,")");
+      //console.log(picture)
+      embed.setTitle("Haven Map Coordinates");
+      embed.setColor(3447003);
+      embed.setImage(picture);
+      embed.addField("Coordinates",fancyCoords);
+      embed.addField("Link",fullSite2)
+      embed.addField("Map Image", "Little map.");
+      message.channel.send({embed});
+    }
+  }// ends if message
 
     // reports on private server what was sent to the bot
     var reporttxt = " asked me ";
