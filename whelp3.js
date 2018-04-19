@@ -7,7 +7,7 @@ const config = require("./config.json");
 const botGuild = require("./botguild.json"); //Bot Guild IDs
 const dracGuild = require("./dracarg.json"); //Draconian Argentum Guild IDs
 const specPpl = require("./specialPeople.json"); // Special People IDS
-var embed = new Discord.RichEmbed();
+
 
 client.on("ready", () => {
   console.log("I am ready!");
@@ -692,6 +692,7 @@ client.on("message", (message) => {
       let picture = "http://www.odditown.com/haven/map/tiles/9/"+xCoord+'_'+yCoord+'.png';
       let trulyFancy = fancyCoords.concat("(",picture,")");
       //console.log(picture)
+      var embed = new Discord.RichEmbed();
       embed.setTitle("Haven Map Coordinates");
       embed.setColor(3447003);
       embed.setImage(picture);
