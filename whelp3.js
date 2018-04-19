@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 const fs = require("fs");
 const { exec } = require('child_process');
 const client = new Discord.Client();
-const config = require("./config2.json");
+const config = require("./config.json");
 const botGuild = require("./botguild.json"); //Bot Guild IDs
 const dracGuild = require("./dracarg.json"); //Draconian Argentum Guild IDs
 const specPpl = require("./specialPeople.json"); // Special People IDS
@@ -11,6 +11,7 @@ var embed = new Discord.RichEmbed();
 
 client.on("ready", () => {
   console.log("I am ready!");
+  console.log(client.status);
 });
 
 
@@ -22,6 +23,7 @@ var removeTheRole;
 var messageR;
 var fuck;
 var ball;
+var ConnNow;
 
 // Constants
 const owner = specPpl.Iso; // my own id 215225483942428672
@@ -131,6 +133,29 @@ client.on("guildBanAdd", (guildin, userin) => {
     if (bannedUser == JubJubID){
       client.guilds.get(dracGuild.guildID).channels.get(dracGuild.genChat).send("LMAO JUBJUB GOT FREAKIN BANNED!");
     }
+});
+
+var running;
+
+client.on("error", (errorC) => {
+  console.log("Connection timed out");
+
+  var yes = client.setInterval(function(){
+          running = 1;
+          console.log("Made it into the setinterval.");
+          client.login(config.token);
+          console.log("Attempted to log in.");
+          ConnNow = client.status;
+          console.log(ConnNow);
+          if (ConnNow == 0){
+            client.clearInterval(yes);
+
+            var sendMe = client.guilds.get(botGuild.guildID).members.get(owner);
+            sendMe.createDM();
+            sendMe.send("I have disconnected, but now I am reconnected.");
+          }
+        },1000);
+
 });
 
 client.on("message", (message) => {

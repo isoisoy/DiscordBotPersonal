@@ -11,6 +11,8 @@ Added !otter command that sends a picture of an otter randomly selected from
 Moved the isBad() checker to the beginning
 Fixed list viewed
 Fixed Jynx 1 fuck
+Added !coords command to provide world map link for Haven
+Edited !8ball to act like !fucksgiven where words can follow the command
 
 
 V2.2.0
