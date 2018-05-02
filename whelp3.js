@@ -436,7 +436,7 @@ client.on("message", (message) => {
       triggers = 0;
       break;
 
-    case caseList[19]: //!doubt
+    case caseList[19]: // !doubt
       message.channel.send({
         files: ['https://cdn.discordapp.com/attachments/227597884646752256/428632515939532801/e02e5ffb5f980cd8262cf7f0ae00a4a9_press-x-to-doubt-memes-memesuper-la-noire-doubt-meme_419-238.png']
       });
@@ -677,6 +677,10 @@ client.on("message", (message) => {
     let xCoord = indivCoords[0];
     let yCoord = indivCoords[1];
     triggers = 1;
+    if (Number(xCoord)=="NaN"||Number(yCoord)=="NaN"){
+      message.channel.send("The coordinates need to be numbers.");
+      return;
+    }
     if (Number(xCoord)>125||Number(xCoord)<-125){
       message.channel.send("The x-coordinate is out of bounds.");
     }else if(Number(yCoord)>125||Number(yCoord)<-125){

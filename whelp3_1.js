@@ -3,14 +3,15 @@ const Discord = require("discord.js");
 const fs = require("fs");
 const { exec } = require('child_process');
 const client = new Discord.Client();
-const config = require("./config2.json");
+const config = require("./config.json");
 const botGuild = require("./botguild.json"); //Bot Guild IDs
 const dracGuild = require("./dracarg.json"); //Draconian Argentum Guild IDs
 const specPpl = require("./specialPeople.json"); // Special People IDS
-var embed = new Discord.RichEmbed();
+
 
 client.on("ready", () => {
   console.log("I am ready!");
+  console.log(client.status);
 });
 
 
@@ -22,6 +23,7 @@ var removeTheRole;
 var messageR;
 var fuck;
 var ball;
+var ConnNow;
 
 // Constants
 const owner = specPpl.Iso; // my own id 215225483942428672
@@ -131,6 +133,29 @@ client.on("guildBanAdd", (guildin, userin) => {
     if (bannedUser == JubJubID){
       client.guilds.get(dracGuild.guildID).channels.get(dracGuild.genChat).send("LMAO JUBJUB GOT FREAKIN BANNED!");
     }
+});
+
+var running;
+
+client.on("error", (errorC) => {
+  console.log("Connection timed out");
+
+  var yes = client.setInterval(function(){
+          running = 1;
+          console.log("Made it into the setinterval.");
+          client.login(config.token);
+          console.log("Attempted to log in.");
+          ConnNow = client.status;
+          console.log(ConnNow);
+          if (ConnNow == 0){
+            client.clearInterval(yes);
+
+            var sendMe = client.guilds.get(botGuild.guildID).members.get(owner);
+            sendMe.createDM();
+            sendMe.send("I have disconnected, but now I am reconnected.");
+          }
+        },1000);
+
 });
 
 client.on("message", (message) => {
@@ -381,37 +406,11 @@ client.on("message", (message) => {
 
     case caseList[18]: // !havenserver
       message.channel.send("That command has been depreciated.");
-      /*var personID = message.author.id;
-      var isBad = badPplFinder(personID);
-      //console.log(isBad);
-      if (isBad){
-        message.channel.send("You do not have permission to use this command.");
-        break;
-      }
-      exec('ping game.havenandhearth.com', (err,stdout,stderr) => {
-        if (err){
-          return;
-        }
-        //console.log('stdout: ${stdout}',stdout);
-        // gotta parse through the message
-        var pos = stdout.indexOf("Lost"); //number of index where Lost will start
-        var importantPos = pos + 7;
-        var numOfLosses = stdout.substr(importantPos,1);
 
-        if (numOfLosses == "0"){
-          message.channel.send("The game server seems to be responding.");
-        } else if (numOfLosses == "4"){
-          message.channel.send("The game server appears to be down.");
-        } else {
-          message.channel.send("The game server may or may not be down.");
-        }
-        triggers = 1;
-      });
-      */
       triggers = 0;
       break;
 
-    case caseList[19]: //!doubt
+    case caseList[19]: // !doubt
       message.channel.send({
         files: ['https://cdn.discordapp.com/attachments/227597884646752256/428632515939532801/e02e5ffb5f980cd8262cf7f0ae00a4a9_press-x-to-doubt-memes-memesuper-la-noire-doubt-meme_419-238.png']
       });
@@ -623,6 +622,201 @@ client.on("message", (message) => {
     }
   }
 
+
+  if (personID == owner || personID == Gamb || personID == Dani){
+    // setTimer starts here -------------------------------------------------------------------------------------
+    var messageDivided = messageCheck.split(' ');
+    if (messageDivided[0] == "setTimer"){
+      message.channel.send("This is for a timer.");
+      var param = messageDivided.length;
+      if (param <= 2){
+        message.channel.send("Not enough parameters given.");
+      } else if (param == 3) { // ---------------------------- command name m -----------------------------------
+        // check for m
+        let checkForM = messageDivided[2];
+        if (checkForM.length >3){
+          message.channel.send("That is too long. The maximum minutes allowed is 60. Please add an hour if you wish to make the timer longer.");
+          return;
+        }
+        if (checkForM.slice(-1) != "m"){
+          message.channel.send("For only one parameter, the ending notation needs to be 'm'.");
+          return;
+        }
+        let numOfMin = Number(checkForM.slice(0,-1));
+        if (numOfMin > 60){
+          message.channel.send("The maximum minutes allowed is 60.");
+          return;
+        }
+        let nameTime = messageDivided[1];
+        createTime(nameTime,0,0,numOfMin);
+
+      } else if (param == 4) { // ----------------------------- command name h m ---------------------------------
+        // check for h m
+        // checks for m
+        let checkForM = messageDivided[3];
+        if (checkForM.length >3){
+          message.channel.send("That is too long. The maximum minutes allowed is 60. Please add an hour if you wish to make the timer longer.");
+          return;
+        }
+        if (checkForM.slice(-1) != "m"){
+          message.channel.send("For two parameters, the ending notation of the second parameter needs to be 'm'.");
+          return;
+        }
+        let numOfMin = Number(checkForM.slice(0,-1));
+        if (numOfMin > 60){
+          message.channel.send("The maximum minutes allowed is 60.");
+          return;
+        }
+        // checks for h
+        let checkForH = messageDivided[2];
+        if (checkForH.length >3){
+          message.channel.send("That is too long. The maximum hours allowed is 24. Please add a day if you wish to make the timer longer.");
+          return;
+        }
+        if (checkForH.slice(-1) != "h"){
+          message.channel.send("For two parameters, the ending notation of the first parameter needs to be 'h'.");
+          return;
+        }
+        let numOfHour = Number(checkForH.slice(0,-1));
+        if (numOfHour > 24){
+          message.channel.send("The maximum hours allowed is 24.");
+          return;
+        }
+        let nameTime = messageDivided[1];
+        createTime(nameTime,0,numOfHour,numOfMin);
+
+      } else if (param == 5) { // ----------------------------- command name d h m -------------------------------
+        // check for d h m
+        // checks for m
+        let checkForM = messageDivided[4];
+        if (checkForM.length >3){
+          message.channel.send("That is too long. The maximum minutes allowed is 60. Please add an hour if you wish to make the timer longer.");
+          return;
+        }
+        if (checkForM.slice(-1) != "m"){
+          message.channel.send("For three parameters, the ending notation of the third parameter needs to be 'm'.");
+          return;
+        }
+        let numOfMin = Number(checkForM.slice(0,-1));
+        if (numOfMin > 60){
+          message.channel.send("The maximum minutes allowed is 60.");
+          return;
+        }
+        // checks for h
+        let checkForH = messageDivided[3];
+        if (checkForH.length >3){
+          message.channel.send("That is too long. The maximum hours allowed is 24. Please add a day if you wish to make the timer longer.");
+          return;
+        }
+        if (checkForH.slice(-1) != "h"){
+          message.channel.send("For three parameters, the ending notation of the second parameter needs to be 'h'.");
+          return;
+        }
+        let numOfHour = Number(checkForH.slice(0,-1));
+        if (numOfHour > 24){
+          message.channel.send("The maximum hours allowed is 24.");
+          return;
+        }
+        // checks for d
+        let checkForD = messageDivided[2];
+        if (checkForD.length >3){
+          message.channel.send("That is too long. The maximum hours allowed is 16. Please add a day if you wish to make the timer longer.");
+          return;
+        }
+        if (checkForD.slice(-1) != "d"){
+          message.channel.send("For three parameters, the ending notation of the first parameter needs to be 'd'.");
+          return;
+        }
+        let numOfDay = Number(checkForD.slice(0,-1));
+        if (numOfDay > 16){
+          message.channel.send("The maximum hours allowed is 16.");
+          return;
+        }
+        let nameTime = messageDivided[1];
+        createTime(nameTime,numOfDay,numOfHour,numOfMin);
+      } else {
+        message.channel.send("Too many parameters.");
+      }
+
+    }
+
+    //checkTimer starts here
+    if (messageDivided[0] == "checkTimer"){
+      message.channel.send("Checking timer.");
+      let nameTimeCheck = messageDivided[1];
+
+      var nowTime = Date.now();
+      let allTimers = fs.readFileSync('timertext.txt','utf8');
+      var individualTimers = allTimers.split(','); // splits the timers into an array where each element is a name and time
+      var i;
+      var found = false;
+      for ( i = 0; i<individualTimers.length; i++){
+        let splitTime = individualTimers[i].split('.');
+        let timerName = splitTime[0];
+        if (timerName == nameTimeCheck){
+          found = true;
+          break;
+        }
+      }
+      if (found){
+        message.channel.send("I found the timer.");
+        let splitTime = individualTimers[i].split('.');
+        let timerTime = splitTime[1];
+        //console.log(timerTime);
+        //console.log(nowTime);
+        var remainTime = Number(timerTime)-nowTime;
+        //console.log(remainTime);
+        var daysRemain = 0;
+        var hoursRemain = 0;
+        var minRemain = 0;
+        if (remainTime>= day){
+          daysRemain = Math.floor(remainTime/day);
+          remainTime = remainTime % day;
+        }
+        if (remainTime >= hour){
+          hoursRemain = Math.floor(remainTime/hour);
+          remainTime = remainTime % hour;
+        }
+        if (remainTime >= minute){
+          minRemain = Math.floor(remainTime/minute);
+          remainTime = remainTime % minute;
+        }
+
+        message.channel.send("For the timer '"+nameTimeCheck+"' : "+daysRemain+" days, "+hoursRemain+" hours, and "+minRemain+
+        " minutes remain.");
+      } else {
+        message.channel.send("There is no such timer.");
+      }
+    }
+
+    //deleteTimer starts here
+    if (messageDivided[0]== "deleteTimer"){
+      let nameTimeCheck = messageDivided[1];
+      let allTimers = fs.readFileSync('timertext.txt','utf8');
+      var individualTimers = allTimers.split(','); // splits the timers into an array where each element is a name and time
+      var p;
+      var found = false;
+      for ( p = 0; p<individualTimers.length; p++){
+        let splitTime = individualTimers[p].split('.');
+        let timerName = splitTime[0];
+        if (timerName == nameTimeCheck){
+          found = true;
+          break;
+        }
+      }
+      if (found){
+        individualTimers.splice(p,1);
+        var newAllTimers=individualTimers.join(',');
+
+        fs.writeFile('timertext.txt',newAllTimers,function (err) {
+          if (err) throw err;
+        });
+      } else{
+        message.channel.send("There is no such timer.");
+      }
+    }
+  }
+
   // for putting people in jail
   if (message.content.startsWith(prefix+"bad")){
     triggers = 1;
@@ -636,10 +830,10 @@ client.on("message", (message) => {
         message.channel.send("That person is already bad.");
       } else{
         //add them to the list
-        fs.appendFile('badppl.txt',badPersonAndDesc, function (err) { //this adds data to the file at the end
+        fs.appendFile('badppl.txt',badPersonAndDesc, function (err) {
             if (err) throw err;
             console.log('Saved!');
-          });//if you wanted to, you could use fs.writeFile(filename,message,callback)
+          });
       }
     }else{
       message.channel.send("You do not have permission to perform this command.");
@@ -652,6 +846,10 @@ client.on("message", (message) => {
     let xCoord = indivCoords[0];
     let yCoord = indivCoords[1];
     triggers = 1;
+    if (Number(xCoord)=="NaN"||Number(yCoord)=="NaN"){
+      message.channel.send("The coordinates need to be numbers.");
+      return;
+    }
     if (Number(xCoord)>125||Number(xCoord)<-125){
       message.channel.send("The x-coordinate is out of bounds.");
     }else if(Number(yCoord)>125||Number(yCoord)<-125){
@@ -667,6 +865,7 @@ client.on("message", (message) => {
       let picture = "http://www.odditown.com/haven/map/tiles/9/"+xCoord+'_'+yCoord+'.png';
       let trulyFancy = fancyCoords.concat("(",picture,")");
       //console.log(picture)
+      var embed = new Discord.RichEmbed();
       embed.setTitle("Haven Map Coordinates");
       embed.setColor(3447003);
       embed.setImage(picture);
@@ -738,11 +937,10 @@ function getRandomInt(max) {
 
 // bad ppl finder
 function badPplFinder(id) {
-  var text = fs.readFileSync('badppl.txt','utf8'); //reads file and inputs data to 'text' var
+  var text = fs.readFileSync('badppl.txt','utf8');
   id = String(id);
   // ids are 18 chars long, starts 25 next
-  //data manip
-  var theBadPeople = [];//initializing matrix
+  var theBadPeople = [];
   lengthBad = text.length;
   var iter = lengthBad/25;
   var isBad = 0;
