@@ -7,7 +7,11 @@ const config = require("./config.json");
 const botGuild = require("./botguild.json"); //Bot Guild IDs
 const dracGuild = require("./dracarg.json"); //Draconian Argentum Guild IDs
 const specPpl = require("./specialPeople.json"); // Special People IDS
-
+// Time Constants
+const day = 8.64*(10**7);
+const hour = 3.6*(10**6);
+const halfHour = 1.8*(10**6);
+const minute = 60000;
 
 client.on("ready", () => {
   console.log("I am ready!");
