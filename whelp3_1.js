@@ -962,3 +962,23 @@ function badPplFinder(id) {
 function isOdd(num) {
   return num % 2;
 }
+
+//timer function
+// creates timer
+function createTime(name,day,hour,minute){
+  let thisTime = Date.now();
+  let addDay = day*8.64*(10**7); // converts the number of days into milliseconds
+  let addHour = hour*3.6*(10**6); // converts the number of hours into milliseconds
+  let addMin = minute*60000; // converts the number of minutes into milliseconds
+
+  let addedTime = addDay + addHour + addMin; // combines to the total number of milliseconds
+
+  let timerEnd = thisTime + addedTime; // This is when the timer completes
+  //console.log(thisTime);
+  //console.log(timerEnd);
+  recorded = name + "."+ timerEnd.toString()+",";
+  fs.appendFile('timertext.txt',recorded, function (err) {
+      if (err) throw err;
+    });
+    return;
+}
