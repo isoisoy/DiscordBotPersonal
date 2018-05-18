@@ -158,7 +158,7 @@ client.on("error", (errorC) => {
             sendMe.createDM();
             sendMe.send("I have disconnected, but now I am reconnected.");
           }
-        },1000);
+        },10000);
 
 });
 
