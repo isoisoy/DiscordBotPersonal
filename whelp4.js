@@ -232,6 +232,7 @@ client.on("message", (message) => {
       havenCommandList += prefix+havenList[h]+"\n";
     }
     embedDM.addField("Haven Commands",havenCommandList)
+    message.author.send({embedDM})
 
   }
   else if(toAll(basicInfo[3],theCommand)){ // lista
