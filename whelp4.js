@@ -210,7 +210,7 @@ client.on("message", (message) => {
   else if(toAll(basicInfo[2],theCommand)){ // list
     message.author.createDM();
     var commandList = "";
-    for (var i = 0; i < basicInfo.length-2; i++) {
+    for (var i = 0; i < basicInfo.length-4; i++) {
         commandList += prefix+basicInfo[i] + "\n";
       }
     for (var z = 0; z < gamesListCap.length; z++) {
@@ -227,7 +227,7 @@ client.on("message", (message) => {
   else if(toAll(basicInfo[3],theCommand)){ // lista
     message.author.createDM();
     var commandList = "";
-    for (var i = 0; i < basicInfo.length-2; i++) {
+    for (var i = 0; i < basicInfo.length-4; i++) {
         commandList += prefix+basicInfo[i] + "\n";
       }
     for (var z = 0; z < gamesListCap.length; z++) {
