@@ -767,7 +767,7 @@ client.login(config.token);
 // Functions
 
 // takes a string and returns it original || capitalized || lowercase
-function toALL(string,identif){
+function toAll(string,identif){
   let original = string;
   let stringCap = string.toUpperCase();
   let stringLower = string.toLowerCase();
