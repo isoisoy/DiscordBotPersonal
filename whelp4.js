@@ -211,28 +211,28 @@ client.on("message", (message) => {
     message.author.createDM();
     var embedDM = new Discord.RichEmbed();
     embedDM.setTitle("Whelp's Command List");
-    embed.setColor(3447003);
+    embedDM.setColor(3447003);
     var basicCommandList = "";
     for (var i = 0; i < basicInfo.length-4; i++) {
         basicCommandList += prefix+basicInfo[i] + "\n";
       }
-    embed.addField("Basic Commands",basicCommandList)
+    embedDM.addField("Basic Commands",basicCommandList)
     var gamesCommandList = "";
     for (var z = 0; z < gamesListCap.length; z++) {
       gamesCommandList += prefix+gamesListCap[z]+ "\n";
     }
-    embed.addField("Game Commands",gamesCommandList)
+    embedDM.addField("Game Commands",gamesCommandList)
     var specialCommandList = "";
     for (var g = 0; g < specialCommand.length; g++) {
       specialCommandList += prefix+specialCommand[g]+"\n";
     }
-    embed.addField("Special Commands",specialCommandList)
+    embedDM.addField("Special Commands",specialCommandList)
     var havenCommandList = "";
     for (var h = 0; h < havenList.length-3; h++){
       havenCommandList += prefix+havenList[h]+"\n";
     }
-    embed.addField("Haven Commands",havenCommandList)
-    
+    embedDM.addField("Haven Commands",havenCommandList)
+
   }
   else if(toAll(basicInfo[3],theCommand)){ // lista
     message.author.createDM();
