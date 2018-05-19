@@ -630,6 +630,7 @@ client.on("message", (message) => {
   if (personID == owner || personID == Gamb || personID == Dani){
     // setTimer starts here -------------------------------------------------------------------------------------
     var messageDivided = messageCheck.split(' ');
+
     if (messageDivided[0] == "setTimer"){
       message.channel.send("This is for a timer.");
       var param = messageDivided.length;
