@@ -108,9 +108,10 @@ const specialCommand = [
 const havenList = [
   "Coords",      // 0
   "HavenServer", // 1
-  "setTimer",    // 2
-  "checkTimer",  // 3
-  "deleteTimer"  // 4
+  "HLatestUpdate", // 2
+  "setTimer",    // 3
+  "checkTimer",  // 4
+  "deleteTimer"  // 5
 ];
 
 // When guild members are added
@@ -619,7 +620,45 @@ client.on("message", (message) => {
     message.channel.send(response);
 
   }
-  else if(toAll(havenList[2],theCommand)){ // setTimer
+  else if(toAll(havenList[2],theCommand)){ // Haven update
+    var xmlHttp = new XMLHttpRequest();
+    var themainURL = "http://www.havenandhearth.com/forum/viewforum.php?f=39&sid=622702d41e832169bc69cfbd892ec4bb";
+    xmlHttp.open("GET",themainURL,false);
+    xmlHttp.send(null);
+    var listNear = xmlHttp.responseText;
+    var starter = listNear.indexOf("row tbg2 sticky");
+    var smallBreak = listNear.substr(starter,1300);
+    //console.log(smallBreak);
+
+    // from this, we isolate the link and title
+    //link first
+
+    var linkStart = smallBreak.indexOf("/viewtopic");
+    var linkClip = smallBreak.substring(linkStart);
+    var linkEnd = linkClip.indexOf('"');
+    linkClip = linkClip.substring(0,linkEnd);
+    linkClip = linkClip.replace(/amp;+/g,"");
+
+    var leadingLink = "http://www.havenandhearth.com/forum";
+
+    var linkFull = leadingLink+linkClip;
+    //console.log(linkFull);
+
+    // announcement title
+    var titleSemi = smallBreak.indexOf("topictitle");
+    var titleClip = smallBreak.substring(titleSemi+30);
+    var titleEnd = titleClip.indexOf("<");
+    var fullTitle = titleClip.substring(0,titleEnd);
+    //console.log("");
+    //console.log(fullTitle);
+
+    // Date
+    var dateStart = smallBreak.indexOf("raquo");
+    var dateClip = smallBreak.substr(dateStart+7,10);
+    message.channel.send("This is the latest Haven & Hearth update from "+
+      dateClip+", "+fullTitle+": "+linkFull);
+  }
+  else if(toAll(havenList[3],theCommand)){ // setTimer
     if (personID == owner || personID == Snik || personID == Dani||personID == Gamb){
       message.channel.send("This is for a timer.");
       var param = contentsMess.length;
@@ -739,7 +778,7 @@ client.on("message", (message) => {
       message.channel.send("This command is not open to the public yet.");
     }
   }
-  else if(toAll(havenList[3],theCommand)){ // checkTimer
+  else if(toAll(havenList[4],theCommand)){ // checkTimer
     message.channel.send("Checking timer.");
     let nameTimeCheck = contentsMess[1];
 
@@ -783,7 +822,7 @@ client.on("message", (message) => {
       message.channel.send("There is no such timer.");
     }
   }
-  else if(toAll(havenList[4],theCommand)){ // deleteTimer
+  else if(toAll(havenList[5],theCommand)){ // deleteTimer
     let nameTimeCheck = contentsMess[1];
     let allTimers = fs.readFileSync('timertext.txt','utf8');
     var individualTimers = allTimers.split(','); // splits the timers into an array where each element is a name and time
