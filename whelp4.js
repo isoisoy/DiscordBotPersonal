@@ -526,7 +526,7 @@ client.on("message", (message) => {
     });
   }
   else if(toAll(specialCommand[9],theCommand)){ // other
-    client.guilds.get(botGuild.guildID).channels.get(botGuild.otherChat).fetchMessages({limit:150})
+    client.guilds.get(botGuild.guildID).channels.get(botGuild.otherChat).fetchMessages({limit:100})
     .then(messagesO => {
       let otherMap = messagesO.array();
       let otherLength = otherMap.length;
