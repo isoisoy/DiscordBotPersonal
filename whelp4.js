@@ -6,6 +6,7 @@ const config = require("./config.json"); // prefix and token
 const botGuild = require("./botguild.json"); //Bot Guild IDs
 const dracGuild = require("./dracarg.json"); //Draconian Argentum Guild IDs
 const specPpl = require("./specialPeople.json"); // Special People IDS
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 // Time Constants
 const day = 8.64*(10**7);
@@ -235,25 +236,39 @@ client.on("message", (message) => {
     }
     embed.addField("________________________________________", "----------------------------------------");
     embed.addField("Haven & Hearth Commands",havenCommandList);
+    embed.addField("________________________________________", "----------------------------------------");
     message.author.send({embed});
 
   }
   else if(toAll(basicInfo[3],theCommand)){ // lista
     message.author.createDM();
-    var commandList = "";
-    for (var i = 0; i < basicInfo.length-4; i++) {
-        commandList += prefix+basicInfo[i] + "\n";
-      }
+    var embed = new Discord.RichEmbed();
+    embed.setTitle("Whelp's Command List");
+    embed.setColor(3447003);
+    embed.setImage("https://cdn.discordapp.com/attachments/409071061527691266/447517888589594634/dragonwhelp2.png");
+    var basicBRCommandList = prefix+"Ajuda\n"+prefix+"Lista\n";
+    embed.addField("________________________________________", "----------------------------------------");
+    embed.addField(":flag_br: Comandos Básicos",basicBRCommandList);
+    var gamesCommandList = "";
     for (var z = 0; z < gamesListCap.length; z++) {
-      commandList += prefix+gamesListCap[z]+ "\n";
+      gamesCommandList += prefix+gamesListCap[z]+"    **("+gameLabel[z]+")**"+ "\n";
     }
+    embed.addField("________________________________________", "----------------------------------------");
+    embed.addField("Comandos Jogos",gamesCommandList);
+    var specialCommandList = "";
     for (var g = 0; g < specialCommand.length; g++) {
-      commandList += prefix+specialCommand[g]+"\n";
+      specialCommandList += prefix+specialCommand[g]+"\n";
     }
+    embed.addField("________________________________________", "----------------------------------------");
+    embed.addField("Comandos Especiais",specialCommandList);
+    var havenCommandList = "";
     for (var h = 0; h < havenList.length-3; h++){
-      commandList += prefix+havenList[h]+"\n";
+      havenCommandList += prefix+havenList[h]+"\n";
     }
-    message.author.send("Essa é a lista de meus comandos. \n"+commandList);
+    embed.addField("________________________________________", "----------------------------------------");
+    embed.addField("Haven & Hearth Commands",havenCommandList);
+    embed.addField("________________________________________", "----------------------------------------");
+    message.author.send({embed});
   }
   else if(toAll(basicInfo[4],theCommand)){ // emoji
     if (personID == owner){
@@ -574,7 +589,26 @@ client.on("message", (message) => {
       message.channel.send({embed});
     }
   }
-  else if(toAll(havenList[1],theCommand)){ // setTimer
+  else if(toAll(havenList[1],theCommand)){ // Haven server
+    var xmlHttp = new XMLHttpRequest();
+    var theURL = "http://www.havenandhearth.com/portal/";
+    xmlHttp.open("GET",theURL,false);
+    xmlHttp.send(null);
+    var lmao = xmlHttp.responseText;
+    var start = lmao.indexOf("h2");
+    var smaller = lmao.substring(start);
+    var end = smaller.lastIndexOf("</p>");
+    var Full = smaller.substring(0,end);
+    Full = Full.replace(/h2>+/g,"");
+    Full = Full.replace(/<p>+/g," ");
+    Full = Full.replace(/<\/p>+/g,"");
+    Full = Full.replace(/<\/+/g,"");
+    var carry = Full.split("\n      ");
+    var response = carry[0]+"."+carry[1]+carry[2]+carry[3]+carry[4];
+    message.channel.send(response);
+
+  }
+  else if(toAll(havenList[2],theCommand)){ // setTimer
     if (personID == owner || personID == Snik || personID == Dani||personID == Gamb){
       message.channel.send("This is for a timer.");
       var param = contentsMess.length;
@@ -694,7 +728,7 @@ client.on("message", (message) => {
       message.channel.send("This command is not open to the public yet.");
     }
   }
-  else if(toAll(havenList[2],theCommand)){ // checkTimer
+  else if(toAll(havenList[3],theCommand)){ // checkTimer
     message.channel.send("Checking timer.");
     let nameTimeCheck = contentsMess[1];
 
@@ -738,7 +772,7 @@ client.on("message", (message) => {
       message.channel.send("There is no such timer.");
     }
   }
-  else if(toAll(havenList[3],theCommand)){ // deleteTimer
+  else if(toAll(havenList[4],theCommand)){ // deleteTimer
     let nameTimeCheck = contentsMess[1];
     let allTimers = fs.readFileSync('timertext.txt','utf8');
     var individualTimers = allTimers.split(','); // splits the timers into an array where each element is a name and time
