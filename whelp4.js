@@ -100,7 +100,8 @@ const specialCommand = [
   "Truestory",  // 5
   "Iso",        // 6
   "8Ball",      // 7
-  "Otter"       // 8
+  "Otter",      // 8
+  "Other"       // 9
 ];
 
 // Haven commands
@@ -336,7 +337,7 @@ client.on("message", (message) => {
       message.channel.send("You are not authorized to use this command.");
     }
   }
-  else if(toAll(basicInfo[7],theCommand)){ // SpecEmit
+  else if(toAll(basicInfo[8],theCommand)){ // SpecEmit
     var dasError = new Error("Someshitfucky");
     client.emit("error",dasError);
   }
@@ -514,18 +515,28 @@ client.on("message", (message) => {
     client.guilds.get(botGuild.guildID).channels.get(botGuild.otterChat).fetchMessages({limit:50})
     .then(messagesO => {
       let otterMap = messagesO.array();
-      //console.log(ottermap);
       let otterLength = otterMap.length;
       let otterRoll = getRandomInt(otterLength);
-      //console.log(otterLength);
-      //console.log(otterRoll);
       if (otterRoll == otterLength){
         otterRoll = otterLength - 1;
       }
       let otterThis = otterMap[otterRoll];
-      //console.log(otterThis);
       let otterPic = otterThis.content;
       message.channel.send(otterPic);
+    });
+  }
+  else if(toAll(specialCommand[9],theCommand)){ // other
+    client.guilds.get(botGuild.guildID).channels.get(botGuild.otherChat).fetchMessages({limit:50})
+    .then(messagesO => {
+      let otherMap = messagesO.array();
+      let otherLength = otherMap.length;
+      let otherRoll = getRandomInt(otherLength);
+      if (otherRoll == otherLength){
+        otherRoll = otherLength - 1;
+      }
+      let otherThis = otherMap[otherRoll];
+      let otherPic = otherThis.content;
+      message.channel.send(otherPic);
     });
   }
   //------------------------------------------------------------------------------
