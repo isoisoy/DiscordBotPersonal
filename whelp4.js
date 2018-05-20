@@ -64,6 +64,18 @@ const gamesListCap = [
   "Terraria"   // 7
 ];
 
+// Game Labels
+const gameLabel = [
+  "Ark: Survival Evolved", // 0
+  "Battlefield",           // 1
+  "Elder Scrolls Online",  // 2
+  "Haven & Hearth",        // 3
+  "Leauge of Legends",     // 4
+  "Minecraft",             // 5
+  "PLAYERUNKOWN's Battlegrounds", // 6
+  "Terraria"               // 7
+];
+
 // Basic Info List
 const basicInfo = [
   "Help",       // 0
@@ -73,7 +85,8 @@ const basicInfo = [
   "Emoji",      // 4
   "RoleID",     // 5
   "Bad",        // 6
-  "NotBad"      // 7
+  "NotBad",      // 7
+  "SpecEmit"    // 8
 ];
 
 // Special Command list
@@ -92,9 +105,10 @@ const specialCommand = [
 // Haven commands
 const havenList = [
   "Coords",      // 0
-  "setTimer",    // 1
-  "checkTimer",  // 2
-  "deleteTimer"  // 3
+  "HavenServer", // 1
+  "setTimer",    // 2
+  "checkTimer",  // 3
+  "deleteTimer"  // 4
 ];
 
 // When guild members are added
@@ -119,24 +133,9 @@ client.on("guildMemberAdd", (addedMember) =>{
 // When the connection fails
 client.on("error", (errorC) => {
   console.log("Connection timed out.");
-
-  var yes = client.setInterval(function(){
-          console.log("Made it into the setinterval.");
-          client.login(config.token)
-          .then((stringC)=>{
-            console.log("Attempted to log in.");
-            ConnNow = client.status;
-            console.log(ConnNow);
-            if (ConnNow == 0){
-              client.clearInterval(yes);
-              var sendMe = client.guilds.get(botGuild.guildID).members.get(owner);
-              sendMe.createDM();
-              sendMe.send("I have disconnected, but now I am reconnected.");
-            }
-          }).catch((err)=>{
-            console.error(err);
-          });
-        },10000);
+  client.login(config.token).catch((err)=>{
+    console.log("Attempted log on.");
+  });
 
 });
 
@@ -209,30 +208,34 @@ client.on("message", (message) => {
   }
   else if(toAll(basicInfo[2],theCommand)){ // list
     message.author.createDM();
-    var embedDM = new Discord.RichEmbed();
-    embedDM.setTitle("Whelp's Command List");
-    embedDM.setColor(3447003);
-    var basicCommandList = "";
-    for (var i = 0; i < basicInfo.length-4; i++) {
-        basicCommandList += prefix+basicInfo[i] + "\n";
-      }
-    embedDM.addField("Basic Commands",basicCommandList)
+    var embed = new Discord.RichEmbed();
+    embed.setTitle("Whelp's Command List");
+    embed.setColor(3447003);
+    embed.setImage("https://cdn.discordapp.com/attachments/409071061527691266/447517888589594634/dragonwhelp2.png");
+    var basicCommandList = prefix+"Help\n"+prefix+"List\n";
+    embed.addField(":flag_gb: Basic Commands",basicCommandList);
+    var basicBRCommandList = prefix+"Ajuda\n"+prefix+"Lista\n";
+    embed.addField("________________________________________", "----------------------------------------");
+    embed.addField(":flag_br: Comandos Básicos",basicBRCommandList);
     var gamesCommandList = "";
     for (var z = 0; z < gamesListCap.length; z++) {
-      gamesCommandList += prefix+gamesListCap[z]+ "\n";
+      gamesCommandList += prefix+gamesListCap[z]+"    **("+gameLabel[z]+")**"+ "\n";
     }
-    embedDM.addField("Game Commands",gamesCommandList)
+    embed.addField("________________________________________", "----------------------------------------");
+    embed.addField("Game Commands / Comandos Jogos",gamesCommandList);
     var specialCommandList = "";
     for (var g = 0; g < specialCommand.length; g++) {
       specialCommandList += prefix+specialCommand[g]+"\n";
     }
-    embedDM.addField("Special Commands",specialCommandList)
+    embed.addField("________________________________________", "----------------------------------------");
+    embed.addField("Special Commands / Comandos Especiais",specialCommandList);
     var havenCommandList = "";
     for (var h = 0; h < havenList.length-3; h++){
       havenCommandList += prefix+havenList[h]+"\n";
     }
-    embedDM.addField("Haven Commands",havenCommandList)
-    message.author.send({embedDM})
+    embed.addField("________________________________________", "----------------------------------------");
+    embed.addField("Haven & Hearth Commands",havenCommandList);
+    message.author.send({embed});
 
   }
   else if(toAll(basicInfo[3],theCommand)){ // lista
@@ -317,6 +320,10 @@ client.on("message", (message) => {
     } else {
       message.channel.send("You are not authorized to use this command.");
     }
+  }
+  else if(toAll(basicInfo[7],theCommand)){ // SpecEmit
+    var dasError = new Error("Someshitfucky");
+    client.emit("error",dasError);
   }
   //------------------------------------------------------------------------------
   else if(toAll(specialCommand[0],theCommand)){ // Ping
